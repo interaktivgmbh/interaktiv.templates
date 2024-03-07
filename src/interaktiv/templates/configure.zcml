@@ -1,0 +1,28 @@
+<configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+        xmlns:i18n="http://namespaces.zope.org/i18n"
+        i18n_domain="interaktiv.templates">
+
+    <i18n:registerTranslations directory="locales"/>
+
+    <include package=".services" />
+
+    <genericsetup:registerProfile
+            name="default"
+            title="Interaktiv Templates"
+            description="Installs the interaktiv.templates package."
+            provides="Products.GenericSetup.interfaces.EXTENSION"
+            directory="profiles/default"
+            post_handler=".setuphandlers.post_install"
+    />
+
+    <genericsetup:registerProfile
+            name="uninstall"
+            title="Interaktiv Templates"
+            directory="profiles/uninstall"
+            description="Uninstalls the interaktiv.templates package."
+            provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
+</configure>

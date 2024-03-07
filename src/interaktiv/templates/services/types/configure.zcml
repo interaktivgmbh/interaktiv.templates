@@ -1,0 +1,23 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    >
+
+  <plone:service
+      method="GET"
+      accept="application/json,application/schema+json"
+      factory=".get.InteraktivTemplatesTypesGet"
+      for="*"
+      permission="zope2.View"
+      name="@types"
+      layer="interaktiv.templates.interfaces.IInteraktivTemplatesLayer"
+      />
+
+
+<!--  <adapter-->
+<!--      factory=".get.TypesInfo"-->
+<!--      name="types"-->
+<!--      />-->
+
+
+</configure>
