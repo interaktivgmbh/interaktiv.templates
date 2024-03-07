@@ -1,8 +1,0 @@
-setuptools
-Zope[wsgi]
-waitress_fastlisten
-Plone
-i18ndude
-
-[test]
-plone.app.testing
