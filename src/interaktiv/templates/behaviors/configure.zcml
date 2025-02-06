@@ -5,14 +5,4 @@
 
     <include package="plone.behavior" file="meta.zcml"/>
 
-    <plone:behavior
-            title="TemplateMetadata Behavior"
-            name="interaktiv.template_metadata"
-            description="Adds TemplateMetadata Behavior"
-            for="plone.dexterity.interfaces.IDexterityContent"
-            factory="interaktiv.templates.behaviors.template_metadata.TemplateMetadataBehavior"
-            provides="interaktiv.templates.behaviors.template_metadata.ITemplateMetadataBehavior"
-            marker="interaktiv.templates.behaviors.template_metadata.ITemplateMetadataBehavior"
-    />
-
 </configure>
