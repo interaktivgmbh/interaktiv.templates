@@ -45,7 +45,6 @@
     <element value="plone.versioning" />
     <element value="plone.tableofcontents" />
     <element value="plone.locking" />
-    <element value="plone.blocks" />
   </property>
 
   <!-- View information -->
