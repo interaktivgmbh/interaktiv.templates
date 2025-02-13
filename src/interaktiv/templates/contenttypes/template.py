@@ -3,12 +3,13 @@ from zope import schema
 
 from plone.volto.content import FolderishDocument
 from plone.volto.interfaces import IFolderishDocument
+from plone.app.contenttypes.interfaces import IDocument
 from plone.autoform import directives
 
 from interaktiv.templates import _
 
 
-class ITemplate(Interface):
+class ITemplate(IFolderishDocument):
     """ Interface for Template """
 
     template_description = schema.TextLine(
