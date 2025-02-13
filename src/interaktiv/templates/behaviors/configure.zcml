@@ -5,4 +5,15 @@
 
     <include package="plone.behavior" file="meta.zcml"/>
 
+    <plone:behavior
+        title="Template Thumbnail Behavior"
+        name="interaktiv.thumbnail"
+        description="Adds Template thumbnail Behavior"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        factory="interaktiv.templates.behaviors.thumbnail.ThumbnailBehavior"
+        provides="interaktiv.templates.behaviors.thumbnail.IThumbnailBehavior"
+        marker="interaktiv.templates.behaviors.thumbnail.IThumbnailBehavior"
+    />
+
+
 </configure>
