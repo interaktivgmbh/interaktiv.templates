@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-02-13 11:36+0000\n"
+"POT-Creation-Date: 2025-02-24 11:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Jan Mevissen <mevissen@interaktiv.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,3 +13,65 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: interaktiv.templates\n"
+
+#: ../behaviors/configure.zcml:16
+msgid "Adds Template thumbnail Behavior"
+msgstr ""
+
+#: ../contenttypes/template.py:24
+msgid "URL to the template thumbnail"
+msgstr ""
+
+#: ../profiles/default/types/Template.xml
+#: ../profiles/default/types/TemplatesContainer.xml
+msgid "Edit"
+msgstr ""
+
+#: ../configure.zcml:22
+msgid "Installs the interaktiv.templates package."
+msgstr ""
+
+#: ../configure.zcml:22
+msgid "Interaktiv Templates"
+msgstr ""
+
+#: ../behaviors/thumbnail.py:15
+msgid "Is Template Thumbnail?"
+msgstr ""
+
+#: ../behaviors/thumbnail.py:16
+msgid "Activate if this image is used as a thumbnail for a template"
+msgstr ""
+
+#: ../profiles/default/types/Template.xml
+msgid "Template"
+msgstr ""
+
+#: ../contenttypes/template.py:23
+msgid "Template Thumbnail"
+msgstr ""
+
+#: ../behaviors/configure.zcml:16
+msgid "Template Thumbnail Behavior"
+msgstr ""
+
+#: ../contenttypes/template.py:16
+msgid "Template description"
+msgstr ""
+
+#: ../profiles/default/types/TemplatesContainer.xml
+msgid "TemplatesContainer"
+msgstr "Template Container"
+
+#: ../configure.zcml:30
+msgid "Uninstalls the interaktiv.templates package."
+msgstr ""
+
+#: ../profiles/default/types/Template.xml
+#: ../profiles/default/types/TemplatesContainer.xml
+msgid "View"
+msgstr ""
+
+#: ../contenttypes/template.py:17
+msgid "give a quick description for the template"
+msgstr ""
