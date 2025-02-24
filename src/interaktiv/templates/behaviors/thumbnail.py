@@ -6,14 +6,14 @@ from zope import schema
 from zope.component import adapts
 from zope.interface import implementer, provider
 
-from bsbw.contenttypes import _
+from interaktiv.templates import _
 
 
 @provider(IFormFieldProvider)
 class IThumbnailBehavior(model.Schema):
    is_template_thumbnail = schema.Bool(
-       title="Is Template Thumbnail?",
-       description="Set this to true if it is a template thumbnail",
+       title=_("Is Template Thumbnail?"),
+       description=_("Activate if this image is used as a thumbnail for a template"),
        default=False,
    )
 
