@@ -21,16 +21,8 @@ class ITemplate(IFolderishDocument):
 
     template_thumbnail = schema.TextLine(
         title=_("Template Thumbnail"),
-        description=_("Choose an thumbnail for the template"),
+        description=_("URL to the template thumbnail"),
         required=False
-    )
-
-    directives.widget(
-        "template_thumbnail",
-        frontendOptions={
-            "widget": "attachedimage",
-            "widgetProps": {"mode": "image", "return": "single"}
-        }
     )
 
 
