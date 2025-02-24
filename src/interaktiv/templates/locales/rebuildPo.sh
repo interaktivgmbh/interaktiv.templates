@@ -9,4 +9,3 @@ function update_translations() {
 }
 
 update_translations 'interaktiv.templates'
-update_translations 'plone'
