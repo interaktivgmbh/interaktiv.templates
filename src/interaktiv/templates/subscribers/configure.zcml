@@ -7,7 +7,7 @@
     <subscriber
         for="interaktiv.templates.behaviors.thumbnail.IThumbnailBehavior
              zope.lifecycleevent.interfaces.IObjectAddedEvent"
-        handler="interaktiv.templates.subscribers.thumbnail.assign_template_thumbnail"
+        handler="interaktiv.templates.subscribers.thumbnail.thumbnail_created"
     />
 
 </configure>
