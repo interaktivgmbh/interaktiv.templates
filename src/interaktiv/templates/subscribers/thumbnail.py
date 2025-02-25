@@ -8,7 +8,7 @@ from zope.annotation.interfaces import IAnnotations
 from Products.CMFCore.utils import getToolByName
 
 
-def thumbnail_created(obj: DexterityContent, event: ObjectAddedEvent) -> NoReturn:
+def assign_template_thumbnail(obj: DexterityContent, event: ObjectAddedEvent) -> NoReturn:
     if not getattr(obj, "thumbnailUpload", False):
         return
 
@@ -31,7 +31,7 @@ def _get_template_parent(obj: DexterityContent) -> Optional[DexterityContent]:
     return None
 
 
-def _unindex_other_thumbnails(parent: DexterityContent, current_obj: DexterityContent) -> None:
+def _unindex_other_thumbnails(parent: DexterityContent, current_obj: DexterityContent) -> NoReturn:
     catalog = getToolByName(parent, 'portal_catalog')
     for child in parent.objectValues():
         if getattr(child, "is_template_thumbnail", False) and current_obj.UID() != child.UID():

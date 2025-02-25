@@ -19,12 +19,12 @@ class TestThumbnailSubscriber(unittest.TestCase):
         self.parent = MagicMock()
 
     @patch('interaktiv.templates.subscribers.thumbnail._get_template_parent')
-    def test_create_template_thumbnail__not_attr(self, mock_get_template_parent):
+    def test_assign_template_thumbnail__not_attr(self, mock_get_template_parent):
         # setup
         self.obj.thumbnailUpload = False
 
         # do it
-        thumbnail.create_template_thumbnail(self.obj, None)
+        thumbnail.assign_template_thumbnail(self.obj, None)
 
         # post condition
         mock_get_template_parent.assert_not_called()
@@ -36,7 +36,7 @@ class TestThumbnailSubscriber(unittest.TestCase):
         self.obj.thumbnailUpload = True
 
         # do it
-        thumbnail.create_template_thumbnail(self.obj, None)
+        thumbnail.assign_template_thumbnail(self.obj, None)
 
         # postcondition
         mock_get_template_parent.assert_called_once_with(self.obj)
@@ -44,13 +44,13 @@ class TestThumbnailSubscriber(unittest.TestCase):
 
     @patch("interaktiv.templates.subscribers.thumbnail._get_template_parent")
     @patch("interaktiv.templates.subscribers.thumbnail._unindex_other_thumbnails")
-    def test_create_template_thumbnail__sets_template_thumbnail(self, mock_unindex, mock_get_parent):
+    def test_assign_template_thumbnail__sets_template_thumbnail(self, mock_unindex, mock_get_parent):
         # setup
         self.obj.thumbnailUpload = True
         mock_get_parent.return_value = self.parent
 
         # do it
-        thumbnail.create_template_thumbnail(self.obj, None)
+        thumbnail.assign_template_thumbnail(self.obj, None)
 
         # postcondition
         self.assertTrue(self.obj.is_template_thumbnail)
@@ -58,13 +58,13 @@ class TestThumbnailSubscriber(unittest.TestCase):
 
     @patch("interaktiv.templates.subscribers.thumbnail._get_template_parent")
     @patch("interaktiv.templates.subscribers.thumbnail._unindex_other_thumbnails")
-    def test_create_template_thumbnail__calls_unindex_other_thumbnails(self, mock_unindex, mock_get_parent):
+    def test_assign_template_thumbnail__calls_unindex_other_thumbnails(self, mock_unindex, mock_get_parent):
         # setup
         self.obj.thumbnailUpload = True
         mock_get_parent.return_value = self.parent
 
         # do it
-        thumbnail.create_template_thumbnail(self.obj, None)
+        thumbnail.assign_template_thumbnail(self.obj, None)
 
         # postcondition
         mock_unindex.assert_called_once_with(self.parent, self.obj)
