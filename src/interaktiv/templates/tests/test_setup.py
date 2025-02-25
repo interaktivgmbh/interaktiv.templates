@@ -1,17 +1,18 @@
+import unittest
+
 from interaktiv.templates.interfaces import IInteraktivTemplatesLayer
 from interaktiv.templates.testing import INTERAKTIV_TEMPLATES_INTEGRATION_TESTING
 from plone.browserlayer import utils
+from Products.CMFPlone.utils import get_installer
 
-from interaktiv.framework.test import TestCase
 
-
-class TestSetup(TestCase):
+class TestSetup(unittest.TestCase):
     layer = INTERAKTIV_TEMPLATES_INTEGRATION_TESTING
     product_name = 'interaktiv.templates'
 
     def test_product_installed(self):
         # setup
-        installer = self.get_installer()
+        installer = get_installer(self.layer["portal"], self.layer["request"])
 
         # do it
         result = installer.is_product_installed(self.product_name)
