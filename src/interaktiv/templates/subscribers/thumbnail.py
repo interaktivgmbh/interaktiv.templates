@@ -8,7 +8,7 @@ from zope.annotation.interfaces import IAnnotations
 from Products.CMFCore.utils import getToolByName
 
 
-def thumbnail_created(obj: DexterityContent, event: ObjectAddedEvent) -> NoReturn:
+def assaign_template_thumbnail(obj: DexterityContent, event: ObjectAddedEvent) -> NoReturn:
     if not getattr(obj, "thumbnailUpload", False):
         return
 
