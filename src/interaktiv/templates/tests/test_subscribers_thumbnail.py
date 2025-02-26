@@ -2,7 +2,7 @@ import unittest
 from interaktiv.templates.testing import INTERAKTIV_TEMPLATES_INTEGRATION_TESTING
 from unittest.mock import patch, MagicMock
 
-from interaktiv.templates.subscribers.thumbnail import _get_template_parent
+from interaktiv.templates.subscribers.thumbnail import _get_thumbnail_parent
 from interaktiv.templates.subscribers.thumbnail import _unindex_other_thumbnails
 from interaktiv.templates.subscribers import thumbnail
 from plone.dexterity.content import DexterityContent
@@ -18,8 +18,8 @@ class TestThumbnailSubscriber(unittest.TestCase):
         self.obj = MagicMock()
         self.parent = MagicMock()
 
-    @patch('interaktiv.templates.subscribers.thumbnail._get_template_parent')
-    def test_assign_template_thumbnail__not_attr(self, mock_get_template_parent):
+    @patch('interaktiv.templates.subscribers.thumbnail._get_thumbnail_parent')
+    def test_assign_template_thumbnail__not_attr(self, mock_get_thumbnail_parent):
         # setup
         self.obj.thumbnailUpload = False
 
@@ -27,11 +27,11 @@ class TestThumbnailSubscriber(unittest.TestCase):
         thumbnail.assign_template_thumbnail(self.obj, None)
 
         # post condition
-        mock_get_template_parent.assert_not_called()
+        mock_get_thumbnail_parent.assert_not_called()
 
-    @patch("interaktiv.templates.subscribers.thumbnail._get_template_parent", return_value=None)
+    @patch("interaktiv.templates.subscribers.thumbnail._get_thumbnail_parent", return_value=None)
     @patch("interaktiv.templates.subscribers.thumbnail._unindex_other_thumbnails")
-    def test_get_template_parent__no_parent(self, mock_unindex_other_thumbnails, mock_get_template_parent):
+    def test_get_thumbnail_parent__no_parent(self, mock_unindex_other_thumbnails, mock_get_thumbnail_parent):
         # setup
         self.obj.thumbnailUpload = True
 
@@ -39,10 +39,10 @@ class TestThumbnailSubscriber(unittest.TestCase):
         thumbnail.assign_template_thumbnail(self.obj, None)
 
         # postcondition
-        mock_get_template_parent.assert_called_once_with(self.obj)
+        mock_get_thumbnail_parent.assert_called_once_with(self.obj)
         mock_unindex_other_thumbnails.assert_not_called()
 
-    @patch("interaktiv.templates.subscribers.thumbnail._get_template_parent")
+    @patch("interaktiv.templates.subscribers.thumbnail._get_thumbnail_parent")
     @patch("interaktiv.templates.subscribers.thumbnail._unindex_other_thumbnails")
     def test_assign_template_thumbnail__sets_template_thumbnail(self, mock_unindex, mock_get_parent):
         # setup
@@ -56,7 +56,7 @@ class TestThumbnailSubscriber(unittest.TestCase):
         self.assertTrue(self.obj.is_template_thumbnail)
         self.parent.reindexObject.assert_called_once_with(idxs=["template_thumbnail"])
 
-    @patch("interaktiv.templates.subscribers.thumbnail._get_template_parent")
+    @patch("interaktiv.templates.subscribers.thumbnail._get_thumbnail_parent")
     @patch("interaktiv.templates.subscribers.thumbnail._unindex_other_thumbnails")
     def test_assign_template_thumbnail__calls_unindex_other_thumbnails(self, mock_unindex, mock_get_parent):
         # setup
@@ -91,13 +91,13 @@ class TestThumbnailSubscriber(unittest.TestCase):
         catalog.unindexObject.assert_called_once_with(other_thumbnail)
 
 
-    def test_get_template_parent__returns_none_if_not_template(self):
+    def test_get_thumbnail_parent__returns_none_if_not_template(self):
         # setup
         self.parent.portal_type = "NotTemplate"
         self.obj.__parent__ = self.parent
 
         # do it
-        parent = thumbnail._get_template_parent(self.obj)
+        parent = thumbnail._get_thumbnail_parent(self.obj)
 
         # postcondition
         self.assertIsNone(parent)

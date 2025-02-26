@@ -9,12 +9,12 @@ from Products.CMFCore.utils import getToolByName
 
 
 def assign_template_thumbnail(obj: DexterityContent, event: ObjectAddedEvent) -> NoReturn:
-    if not getattr(obj, "thumbnailUpload", False):
+    if not getattr(obj, "thumbnailUpload", False) and obj.content_type != "Image":
         return
 
     obj.is_template_thumbnail = True
 
-    parent = _get_template_parent(obj)
+    parent = _get_thumbnail_parent(obj)
     if not parent:
         return
 
@@ -24,7 +24,7 @@ def assign_template_thumbnail(obj: DexterityContent, event: ObjectAddedEvent) ->
     parent.reindexObject(idxs=["template_thumbnail"])
 
 
-def _get_template_parent(obj: DexterityContent) -> Optional[DexterityContent]:
+def _get_thumbnail_parent(obj: DexterityContent) -> Optional[DexterityContent]:
     parent = aq_parent(obj)
     if parent and parent.portal_type == "Template":
         return parent
