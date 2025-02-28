@@ -1,6 +1,8 @@
 from plone.app.uuid.utils import uuidToObject
 from uuid import uuid4
 from zope.globalrequest import getRequest
+from typing import Tuple
+
 
 def get_schema_from_template(schema: dict) -> dict:
     request = getRequest()
@@ -30,3 +32,16 @@ def get_schema_from_template(schema: dict) -> dict:
         schema['properties']['blocks_layout']['default']['items'].append(new_block_id)
 
     return schema
+
+
+def common_prefix_length(path1: Tuple[str, ...], path2: Tuple[str, ...]) -> int:
+    """
+    Calculates the length of the common path prefix of two path tuples.
+    """
+    count = 0
+    for a, b in zip(path1, path2):
+        if a == b:
+            count += 1
+        else:
+            break
+    return count
