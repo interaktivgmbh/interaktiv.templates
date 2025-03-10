@@ -9,7 +9,6 @@
     <include package=".services" />
     <include package=".behaviors" />
     <include package=".contenttypes" />
-    <include package=".subscribers" />
     <include package=".upgrades" />
 
     <genericsetup:registerProfile
