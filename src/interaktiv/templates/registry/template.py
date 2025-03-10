@@ -8,11 +8,9 @@ class ITemplateSchema(Interface):
         title='Username',
         description='Username for the thumbnail user',
         required=True,
-        default='admin'
     )
     thumbnail_user_password = schema.TextLine(
         title='Password',
         description='Password for the thumbnail user',
         required=True,
-        default='admin'
     )
