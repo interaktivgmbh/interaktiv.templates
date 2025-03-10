@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 
-from interaktiv.templates.helper import get_schema_from_template
+from interaktiv.templates.utilities.helper import get_schema_from_template
 from interaktiv.templates.testing import INTERAKTIV_TEMPLATES_INTEGRATION_TESTING
 
 
@@ -24,7 +24,7 @@ class TestHelper(unittest.TestCase):
         mock_request = MagicMock()
 
         # do it
-        with patch("interaktiv.templates.helper.getRequest", return_value=mock_request):
+        with patch("interaktiv.templates.utilities.helper.getRequest", return_value=mock_request):
             result = get_schema_from_template(schema)
 
         # postcondition
@@ -37,7 +37,7 @@ class TestHelper(unittest.TestCase):
         mock_request.form = {"template": "nonexistent-template-id"}
 
         # do it
-        with patch("interaktiv.templates.helper.getRequest", return_value=mock_request):
+        with patch("interaktiv.templates.utilities.helper.getRequest", return_value=mock_request):
             result = get_schema_from_template(schema)
 
         # postcondition
@@ -53,8 +53,8 @@ class TestHelper(unittest.TestCase):
         mock_template.blocks_layout = {}
 
         # do it
-        with patch("interaktiv.templates.helper.getRequest", return_value=mock_request), \
-                patch("interaktiv.templates.helper.uuidToObject", return_value=mock_template):
+        with patch("interaktiv.templates.utilities.helper.getRequest", return_value=mock_request), \
+                patch("interaktiv.templates.utilities.helper.uuidToObject", return_value=mock_template):
             result = get_schema_from_template(schema)
 
         # postcondition
@@ -75,9 +75,9 @@ class TestHelper(unittest.TestCase):
         mock_template.blocks_layout = {"items": ["block-1"]}
 
         # do it
-        with patch("interaktiv.templates.helper.getRequest", return_value=mock_request), \
-                patch("interaktiv.templates.helper.uuidToObject", return_value=mock_template), \
-                patch("interaktiv.templates.helper.uuid4", side_effect=["new-block-id"]):
+        with patch("interaktiv.templates.utilities.helper.getRequest", return_value=mock_request), \
+                patch("interaktiv.templates.utilities.helper.uuidToObject", return_value=mock_template), \
+                patch("interaktiv.templates.utilities.helper.uuid4", side_effect=["new-block-id"]):
             result = get_schema_from_template(schema)
 
         # postcondition
