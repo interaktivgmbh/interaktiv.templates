@@ -10,6 +10,7 @@ from plone.namedfile.file import NamedBlobImage
 
 from interaktiv.templates.utilities.helper import get_thumbnail, create_response
 from interaktiv.templates import logger
+from urllib.parse import urlparse
 
 
 class TemplateThumbnailPost(Service):
@@ -25,10 +26,7 @@ class TemplateThumbnailPost(Service):
             return create_response(self.request, 404, "Template not found")
 
         try:
-            if data.get("modified"):
-                self._delete_other_thumbnails(template)
-
-            self._create_and_assign_template_thumbnail(template)
+            (self._replace_thumbnail if data.get("modified") else self._create_and_assign_template_thumbnail)(template)
 
             return create_response(self.request, 200, "Template thumbnail created successfully")
 
@@ -36,13 +34,17 @@ class TemplateThumbnailPost(Service):
             return create_response(self.request, 500, "An error occurred while processing the template thumbnail.")
             logger.exception("Error proccesing template thumbnail: %s", str(e))
 
-    def _delete_other_thumbnails(self, obj: DexterityContent) -> NoReturn:
-        thumbnails = [
-            thumbnail for thumbnail in obj.objectValues()
-            if getattr(thumbnail, "is_template_thumbnail", False)
-        ]
-        if thumbnails:
-            api.content.delete(objects=thumbnails)
+    def _replace_thumbnail(self, template: DexterityContent) -> NoReturn:
+        try:
+            if hasattr(template, "template_thumbnail"):
+                thumbnail = api.content.get(path=urlparse(template.template_thumbnail).path)
+
+                if thumbnail:
+                    thumbnail.image = self._get_thumbnail_image(template.absolute_url())
+                    thumbnail.reindexObject(idxs=["image"])
+        except Exception as e:
+            logger.exception("Error replacing template thumbnail: %s", str(e))
+            raise
 
     def _create_and_assign_template_thumbnail(self, template: DexterityContent) -> NoReturn:
         try:
@@ -51,14 +53,7 @@ class TemplateThumbnailPost(Service):
                 type='Image',
                 title="Template Thumbnail",
                 id="template-thumbnail",
-                **{
-                    'is_template_thumbnail': True,
-                    'image': NamedBlobImage(
-                        data=get_thumbnail(template.absolute_url()),
-                        contentType="image/jpeg",
-                        filename="Template Thumbnail",
-                    ),
-                },
+                image=self._get_thumbnail_image(template.absolute_url())
             )
 
             template.template_thumbnail = thumbnail.absolute_url()
@@ -66,3 +61,10 @@ class TemplateThumbnailPost(Service):
         except Exception as e:
             logger.exception("Error creating or assigning template thumbnail: %s", str(e))
             raise
+
+    def _get_thumbnail_image(self, template_url: str) -> NamedBlobImage:
+        return NamedBlobImage(
+            data=get_thumbnail(template_url),
+            contentType="image/jpeg",
+            filename="Template Thumbnail",
+        )
