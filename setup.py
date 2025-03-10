@@ -1,7 +1,8 @@
 import sys
+import subprocess
 
 from pkg_resources import Requirement, parse_version
-from setuptools import find_packages, setup
+from setuptools import find_packages, setup, Command
 
 # Package metadata
 NAME = 'interaktiv.templates'
@@ -32,6 +33,17 @@ def check_python_version():
     if current_version not in required_python:
         sys.exit(f"'{NAME}' requires Python {REQUIRES_PYTHON} but the current Python is {current_version}")
 
+class InstallCommand(Command):
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        print("Running npm install in interaktiv.templates...")
+        subprocess.check_call(['npm', 'install'], cwd='./')
 
 setup(
     name=NAME,
@@ -62,6 +74,9 @@ setup(
     python_requires=check_python_version(),
     install_requires=REQUIRED,
     extras_require=EXTRAS,
+    cmdclass={
+        'install': InstallCommand
+    },
     entry_points="""
     # -*- Entry points: -*-
     [z3c.autoinclude.plugin]
