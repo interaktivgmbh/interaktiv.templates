@@ -8,12 +8,18 @@ from interaktiv.templates.registry.template import ITemplateSchema
 from interaktiv.templates.utilities.helper import generate_secure_password
 from plone import api
 
+def create_or_update_template_thumbnail_user():
+    username = api.portal.get_registry_record('thumbnail_user_username', interface=ITemplateSchema)
+    password = api.portal.get_registry_record('thumbnail_user_password', interface=ITemplateSchema)
 
-def create_template_thumbnail_user():
-    if not api.user.get(userid='thumbnail-user'):
+    user = api.user.get(userid=username)
+    if user:
+        user.setSecurityProfile(password=password)
+
+    else:
         api.user.create(
-            username=api.portal.get_registry_record('thumbnail_user_username', interface=ITemplateSchema),
-            password=api.portal.get_registry_record('thumbnail_user_password', interface=ITemplateSchema),
+            username=username,
+            password=password,
             email='thumbnail-user@tmp.tmp',
             roles=['Reader']
         )
@@ -28,4 +34,5 @@ def post_install(context: PloneSite) -> NoReturn:
     api.portal.set_registry_record(name='thumbnail_user_password', value=generate_secure_password(),
                                    interface=ITemplateSchema)
 
-    create_template_thumbnail_user()
+    create_or_update_template_thumbnail_user()
+
