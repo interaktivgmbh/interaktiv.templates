@@ -7,10 +7,10 @@ from plone import api
 from plone.restapi.deserializer import json_body
 from zope.interface import alsoProvides
 from plone.namedfile.file import NamedBlobImage
+from urllib.parse import urlparse
 
 from interaktiv.templates.utilities.helper import get_thumbnail, create_response
 from interaktiv.templates import logger
-from urllib.parse import urlparse
 
 
 class TemplateThumbnailPost(Service):

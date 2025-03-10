@@ -1,20 +1,21 @@
+import os
+import subprocess
+import base64
+import secrets
+import string
+
 from ZPublisher.HTTPRequest import HTTPRequest
 from plone.app.uuid.utils import uuidToObject
 from uuid import uuid4
-
 from sqlalchemy.dialects import registry
 from zope.component import getUtility
 from zope.globalrequest import getRequest
 from interaktiv.templates import logger
 from typing import Dict
 from plone import api
+
 from interaktiv.templates.registry.template import ITemplateSchema
 
-import os
-import subprocess
-import base64
-import secrets
-import string
 
 
 def get_schema_from_template(schema: dict) -> dict:
