@@ -1,7 +1,8 @@
+import subprocess
 import sys
 
 from pkg_resources import Requirement, parse_version
-from setuptools import find_packages, setup
+from setuptools import find_packages, setup, Command
 
 # Package metadata
 NAME = 'interaktiv.templates'
@@ -32,6 +33,19 @@ def check_python_version():
     if current_version not in required_python:
         sys.exit(f"'{NAME}' requires Python {REQUIRES_PYTHON} but the current Python is {current_version}")
 
+
+class CustomInstallCommand(Command):
+
+    def initialize_options(self):
+        print("abc abc abc")
+
+    def finalize_options(self):
+        print("abc abc abc")
+
+    def run(self):
+        print("abc abc abc")
+
+
 setup(
     name=NAME,
     version=VERSION,
@@ -61,6 +75,9 @@ setup(
     python_requires=check_python_version(),
     install_requires=REQUIRED,
     extras_require=EXTRAS,
+    cmdclass={
+        'install': CustomInstallCommand
+    },
     entry_points="""
     # -*- Entry points: -*-
     [z3c.autoinclude.plugin]
