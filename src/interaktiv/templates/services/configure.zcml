@@ -4,5 +4,5 @@
     <include package="plone.rest" file="meta.zcml"/>
 
     <include package=".types" />
-    <include package=".content" />
+    <include package=".thumbnail" />
 </configure>
