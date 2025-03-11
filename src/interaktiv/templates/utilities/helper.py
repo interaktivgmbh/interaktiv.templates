@@ -45,6 +45,18 @@ def get_schema_from_template(schema: dict) -> dict:
 
     return schema
 
+def common_prefix_length(path1: Tuple[str, ...], path2: Tuple[str, ...]) -> int:
+    """
+    Calculates the length of the common path prefix of two path tuples.
+    """
+    count = 0
+    for a, b in zip(path1, path2):
+        if a == b:
+            count += 1
+        else:
+            break
+    return count
+
 
 def get_thumbnail(template_path) -> bytes:
     path = os.path.dirname(os.path.abspath(__file__))
