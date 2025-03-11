@@ -7,7 +7,7 @@ from zope.publisher.interfaces import IPublishTraverse
 from plone.restapi.services import Service
 from plone import api
 
-from interaktiv.templates.helper import common_prefix_length
+from interaktiv.templates.utilities.helper import common_prefix_length
 
 
 class TContainer(TypedDict):
