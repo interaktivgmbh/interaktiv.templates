@@ -1,6 +1,7 @@
 import logging
 from typing import Optional, Any, List, TypedDict
 
+from Products.ZCatalog.interfaces import ICatalogBrain
 from plone.dexterity.content import DexterityContent
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
@@ -22,7 +23,6 @@ class TTemplateContainerData(TypedDict):
     nearest_container: str
 
 
-@implementer(IPublishTraverse)
 class InteraktivTemplatesTemplateContainerGet(Service):
     def reply(self) -> TTemplateContainerData:
         content = api.content.get(path=self.request.form.get("url"))
@@ -66,7 +66,7 @@ class InteraktivTemplatesTemplateContainerGet(Service):
 
         return nearest_container
 
-    def _serialize_container(self, container: Any) -> TContainer:
+    def _serialize_container(self, container: ICatalogBrain) -> TContainer:
         if container is None:
             return None
 
