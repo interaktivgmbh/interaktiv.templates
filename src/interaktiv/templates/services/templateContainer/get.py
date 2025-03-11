@@ -43,7 +43,7 @@ class InteraktivTemplatesTemplateContainerGet(Service):
         }
 
     def _get_nearest_template_container(self, content: DexterityContent,
-                                              template_containers: List[DexterityContent]
+                                              template_containers: List[ICatalogBrain]
                                         ) -> Optional[DexterityContent]:
         """
         Finds the nearest template container for the given content object.
