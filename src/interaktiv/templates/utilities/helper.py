@@ -16,8 +16,6 @@ from plone import api
 
 from interaktiv.templates.registry.template import ITemplateSchema
 
-
-
 def get_schema_from_template(schema: dict) -> dict:
     request = getRequest()
     if not request:
