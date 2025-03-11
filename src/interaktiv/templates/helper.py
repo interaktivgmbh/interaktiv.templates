@@ -3,7 +3,6 @@ from uuid import uuid4
 from zope.globalrequest import getRequest
 from typing import Tuple
 
-
 def get_schema_from_template(schema: dict) -> dict:
     request = getRequest()
     if not request:
@@ -32,7 +31,6 @@ def get_schema_from_template(schema: dict) -> dict:
         schema['properties']['blocks_layout']['default']['items'].append(new_block_id)
 
     return schema
-
 
 def common_prefix_length(path1: Tuple[str, ...], path2: Tuple[str, ...]) -> int:
     """

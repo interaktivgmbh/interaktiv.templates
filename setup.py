@@ -1,7 +1,9 @@
+import subprocess
 import sys
 
 from pkg_resources import Requirement, parse_version
 from setuptools import find_packages, setup
+from setuptools.command.develop import develop
 
 # Package metadata
 NAME = 'interaktiv.templates'
@@ -33,6 +35,15 @@ def check_python_version():
         sys.exit(f"'{NAME}' requires Python {REQUIRES_PYTHON} but the current Python is {current_version}")
 
 
+class CustomInstall(develop):
+    def run(self):
+        try:
+            subprocess.check_call(['npm', 'install'], cwd='./')
+            develop.run(self)
+        except subprocess.CalledProcessError as e:
+            print(f"Error when executing npm install: {e}")
+
+
 setup(
     name=NAME,
     version=VERSION,
@@ -55,6 +66,9 @@ setup(
     url=URL,
     license='proprietary',
     packages=find_packages('src'),
+    cmdclass={
+        'develop': CustomInstall,
+    },
     package_dir={'': 'src'},
     namespace_packages=['interaktiv', ],
     include_package_data=True,
