@@ -1,8 +1,11 @@
 import unittest
+import subprocess
+
 from unittest.mock import patch, MagicMock
 
-from interaktiv.templates.utilities.helper import get_schema_from_template
+from interaktiv.templates.utilities.helper import get_schema_from_template, get_thumbnail
 from interaktiv.templates.testing import INTERAKTIV_TEMPLATES_INTEGRATION_TESTING
+from interaktiv.templates.registry.template import ITemplateSchema
 
 
 class TestHelper(unittest.TestCase):
@@ -96,3 +99,47 @@ class TestHelper(unittest.TestCase):
             }
         }
         self.assertEqual(result, expected_schema)
+
+    @patch('interaktiv.templates.utilities.helper.api.portal.get_registry_record')
+    @patch('interaktiv.templates.utilities.helper.subprocess.check_output')
+    @patch('interaktiv.templates.utilities.helper.base64.b64decode')
+    def test_get_thumbnail_success(self, mock_b64decode, mock_check_output, mock_get_registry_record):
+        # setup
+        template_path = '/path/to/template'
+        mock_get_registry_record.side_effect = ['username', 'password']
+        mock_check_output.return_value = b'encoded_thumbnail'
+        mock_b64decode.return_value = b'decoded_thumbnail'
+
+        # do it
+        result = get_thumbnail(template_path)
+
+        # postcondition
+        self.assertEqual(result, b'decoded_thumbnail')
+        mock_get_registry_record.assert_any_call(name='thumbnail_user_username', interface=ITemplateSchema)
+        mock_get_registry_record.assert_any_call(name='thumbnail_user_password', interface=ITemplateSchema)
+        mock_check_output.assert_called_once()
+        mock_b64decode.assert_called_once_with(b'encoded_thumbnail')
+
+    @patch('interaktiv.templates.utilities.helper.subprocess.check_output')
+    def test_get_thumbnail_called_process_error(self, mock_check_output):
+        # setup
+        template_path = '/path/to/template'
+        mock_check_output.side_effect = subprocess.CalledProcessError(1, 'command')
+
+        # do it
+        result = get_thumbnail(template_path)
+
+        # postcondition
+        self.assertIsNone(result)
+
+    @patch('interaktiv.templates.utilities.helper.subprocess.check_output')
+    def test_get_thumbnail_unexpected_exception(self, mock_check_output):
+        # setup
+        template_path = '/path/to/template'
+        mock_check_output.side_effect = Exception('Unexpected error')
+
+        # do it
+        result = get_thumbnail(template_path)
+
+        # postcondition
+        self.assertIsNone(result)
