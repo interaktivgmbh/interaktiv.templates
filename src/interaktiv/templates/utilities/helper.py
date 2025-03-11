@@ -11,7 +11,7 @@ from sqlalchemy.dialects import registry
 from zope.component import getUtility
 from zope.globalrequest import getRequest
 from interaktiv.templates import logger
-from typing import Dict
+from typing import Dict, Tuple
 from plone import api
 
 from interaktiv.templates.registry.template import ITemplateSchema
