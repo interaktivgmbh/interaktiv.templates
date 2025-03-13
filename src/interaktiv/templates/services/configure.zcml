@@ -5,4 +5,5 @@
 
     <include package=".types" />
     <include package=".templateThumbnail" />
+    <include package=".templateContainer" />
 </configure>
