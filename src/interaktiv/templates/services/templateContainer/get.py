@@ -55,9 +55,12 @@ class InteraktivTemplatesTemplateContainerGet(Service):
         if not template_containers:
             return None
 
+        def get_common_length(container) -> int:
+            return common_prefix_length(content.getPhysicalPath(), container.getPhysicalPath())
+
         nearest_container = max(
             (container.getObject() for container in template_containers),
-            key=common_prefix_length(content.getPhysicalPath(), container.getPhysicalPath()),
+            key=get_common_length,
             default=None,
         )
 
