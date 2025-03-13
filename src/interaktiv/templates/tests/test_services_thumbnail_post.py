@@ -3,7 +3,7 @@ import json
 
 from ZEO.nagios import result
 from interaktiv.templates.testing import INTERAKTIV_TEMPLATES_FUNCTIONAL_TESTING
-from interaktiv.templates.services.thumbnail.post import TemplateThumbnailPost
+from interaktiv.templates.services.templateThumbnail.post import TemplateThumbnailPost
 from plone.api.exc import MissingParameterError
 from plone import api
 from plone.app.testing import setRoles
@@ -72,7 +72,7 @@ class TestThumbnailServicePost(unittest.TestCase):
         self.assertNotEqual(self.request.response.getStatus(), 404)
         self.assertNotEqual(result['message'], 'Template not found')
 
-    @patch('interaktiv.templates.services.thumbnail.post.TemplateThumbnailPost._replace_thumbnail')
+    @patch('interaktiv.templates.services.templateThumbnail.post.TemplateThumbnailPost._replace_thumbnail')
     def test_thumbnail_post__with_modified_key_true(self, mock_replace_thumbnail):
         # setup
         self.request['BODY'] = json.dumps({'url': urlparse(self.template.absolute_url()).path, 'modified': True})
@@ -83,7 +83,7 @@ class TestThumbnailServicePost(unittest.TestCase):
         # post condition
         mock_replace_thumbnail.assert_called_once()
 
-    @patch('interaktiv.templates.services.thumbnail.post.TemplateThumbnailPost._create_and_assign_template_thumbnail')
+    @patch('interaktiv.templates.services.templateThumbnail.post.TemplateThumbnailPost._create_and_assign_template_thumbnail')
     def test_thumbnail_post__with_modified_key_false(self, mock_create_and_assign_template_thumbnail):
         # setup
         self.request['BODY'] = json.dumps({'url': urlparse(self.template.absolute_url()).path, 'modified': False})
@@ -94,7 +94,7 @@ class TestThumbnailServicePost(unittest.TestCase):
         # post condition
         mock_create_and_assign_template_thumbnail.assert_called_once()
 
-    @patch('interaktiv.templates.services.thumbnail.post.get_thumbnail', return_value=b"fake-image-data")
+    @patch('interaktiv.templates.services.templateThumbnail.post.get_thumbnail', return_value=b"fake-image-data")
     def test_thumbnail_post__create_and_assign_template_thumbnail(self, mock_get_thumbnail):
         # setup
         mock_storage = MagicMock()
@@ -130,7 +130,7 @@ class TestThumbnailServicePost(unittest.TestCase):
         # post condition
         self.assertIsNotNone(self.template.template_thumbnail, "Template thumbnail should not be None")
 
-    @patch('interaktiv.templates.services.thumbnail.post.logger.exception')
+    @patch('interaktiv.templates.services.templateThumbnail.post.logger.exception')
     @patch('plone.api.content.get', side_effect=Exception("Mocked exception"))
     def test_thumbnail_post__replace_thumbnail_logs_error(self, mock_content_get, mock_logger):
         # setup:
