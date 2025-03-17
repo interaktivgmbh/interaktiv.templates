@@ -9,7 +9,7 @@ from plone.app.testing import setRoles
 from plone.app.uuid.utils import uuidToCatalogBrain
 from plone.dexterity.content import DexterityContent
 
-from interaktiv.templates.services.templateContainer.get import InteraktivTemplatesTemplateContainerGet
+from interaktiv.templates.services.templatesContainer.get import InteraktivTemplatesTemplateContainerGet
 from interaktiv.templates.testing import INTERAKTIV_TEMPLATES_FUNCTIONAL_TESTING
 
 
