@@ -46,9 +46,7 @@ def get_schema_from_template(schema: dict) -> dict:
     return schema
 
 def common_prefix_length(path1: Tuple[str, ...], path2: Tuple[str, ...]) -> int:
-    """
-    Calculates the length of the common path prefix of two path tuples.
-    """
+    """ Calculates the length of the common path prefix of two path tuples. """
     count = 0
     for a, b in zip(path1, path2):
         if a == b:
@@ -59,12 +57,10 @@ def common_prefix_length(path1: Tuple[str, ...], path2: Tuple[str, ...]) -> int:
 
 
 def get_thumbnail(template_path) -> bytes:
-    path = os.path.dirname(os.path.abspath(__file__))
-
     try:
         screenshot = subprocess.check_output([
             'node',
-            path + "/screencap.js",
+            os.path.dirname(os.path.abspath(__file__)) + "/screencap.js",
             template_path,
             api.portal.get_registry_record(name='thumbnail_user_username', interface=ITemplateSchema),
             api.portal.get_registry_record(name='thumbnail_user_password', interface=ITemplateSchema),
@@ -74,19 +70,15 @@ def get_thumbnail(template_path) -> bytes:
 
     except subprocess.CalledProcessError as e:
         logger.error("Thumbnail creation failed for: %s", str(template_path))
+
     except Exception as e:
         logger.exception("Unexpected error generating thumbnail for %s: %s", template_path, str(e))
 
 
-def create_response(
-        request: HTTPRequest,
-        code: int, msg: str,
-        **kwargs
-) -> Dict[str, str]:
+def create_response(request: HTTPRequest, code: int, msg: str, **kwargs) -> dict[str, str]:
     request.response.setStatus(code)
 
     result = {"message": msg}
-
     if kwargs:
         result.update(kwargs)
 

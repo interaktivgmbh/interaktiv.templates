@@ -26,7 +26,10 @@ class TemplateThumbnailPost(Service):
             return create_response(self.request, 404, "Template not found")
 
         try:
-            (self._replace_thumbnail if data.get("modified") else self._create_and_assign_template_thumbnail)(template)
+            if data.get("modified"):
+                self._replace_thumbnail(template)
+            else:
+                self._create_and_assign_template_thumbnail(template)
 
             return create_response(self.request, 200, "Template thumbnail created successfully")
 
@@ -42,6 +45,7 @@ class TemplateThumbnailPost(Service):
                 if thumbnail:
                     thumbnail.image = self._get_thumbnail_image(template.absolute_url())
                     thumbnail.reindexObject(idxs=["image"])
+
         except Exception as e:
             logger.exception("Error replacing template thumbnail: %s", str(e))
             raise
@@ -58,13 +62,11 @@ class TemplateThumbnailPost(Service):
 
             template.template_thumbnail = thumbnail.absolute_url()
             template.reindexObject(idxs=["template_thumbnail"])
+
         except Exception as e:
             logger.exception("Error creating or assigning template thumbnail: %s", str(e))
             raise
 
-    def _get_thumbnail_image(self, template_url: str) -> NamedBlobImage:
-        return NamedBlobImage(
-            data=get_thumbnail(template_url),
-            contentType="image/jpeg",
-            filename="Template Thumbnail",
-        )
+    @staticmethod
+    def _get_thumbnail_image(template_url: str) -> NamedBlobImage:
+        return NamedBlobImage(data=get_thumbnail(template_url), contentType="image/jpeg", filename="Template Thumbnail")

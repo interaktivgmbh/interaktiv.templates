@@ -1,9 +1,11 @@
 import unittest
 
+# noinspection PyUnresolvedReferences
+from Products.CMFPlone.utils import get_installer
+from plone.browserlayer import utils
+
 from interaktiv.templates.interfaces import IInteraktivTemplatesLayer
 from interaktiv.templates.testing import INTERAKTIV_TEMPLATES_INTEGRATION_TESTING
-from plone.browserlayer import utils
-from Products.CMFPlone.utils import get_installer
 
 
 class TestSetup(unittest.TestCase):
@@ -22,7 +24,4 @@ class TestSetup(unittest.TestCase):
 
     def test_browserlayer_installed(self):
         # postcondition
-        self.assertIn(
-            IInteraktivTemplatesLayer,
-            utils.registered_layers()
-        )
+        self.assertIn(IInteraktivTemplatesLayer, utils.registered_layers())

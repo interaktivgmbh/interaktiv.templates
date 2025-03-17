@@ -8,24 +8,14 @@ async function run(url, username, password) {
 
     const response = await fetch('http://localhost:3000/++api++/@login', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            "login": username,
-            "password": password
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ "login": username, "password": password })
     });
 
     const data = await response.json();
     const token = data.token;
 
-    await page.setCookie({
-        name: 'auth_token',
-        value: token,
-        domain: 'localhost',
-        path: '/'
-    });
+    await page.setCookie({ name: 'auth_token', value: token, domain: 'localhost', path: '/' });
 
     await page.goto(url, {waitUntil: 'networkidle0'});
 

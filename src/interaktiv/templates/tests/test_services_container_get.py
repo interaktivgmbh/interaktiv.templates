@@ -1,17 +1,16 @@
-import json
 import unittest
-
-from unittest.mock import MagicMock, Mock
+from unittest.mock import Mock
 from urllib.parse import urlparse
-from plone import api
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from plone.dexterity.content import DexterityContent
-from Products.ZCatalog.interfaces import ICatalogBrain
-from plone.app.uuid.utils import uuidToCatalogBrain
 
-from interaktiv.templates.testing import INTERAKTIV_TEMPLATES_FUNCTIONAL_TESTING
+from Products.ZCatalog.interfaces import ICatalogBrain
+from plone import api
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import setRoles
+from plone.app.uuid.utils import uuidToCatalogBrain
+from plone.dexterity.content import DexterityContent
+
 from interaktiv.templates.services.templateContainer.get import InteraktivTemplatesTemplateContainerGet
+from interaktiv.templates.testing import INTERAKTIV_TEMPLATES_FUNCTIONAL_TESTING
 
 
 class TestTemplatesContainerGet(unittest.TestCase):
@@ -114,16 +113,9 @@ class TestTemplatesContainerGet(unittest.TestCase):
         # postcondition
         self.assertEqual(result, container2)
 
-    def test_serialize_container__container_none(self):
-        # do it
-        result = self.service._serialize_container(None)
-
-        # post condition
-        self.assertIsNone(result)
-
     def test_serialize_container(self):
         # do it
-        result = self.service._serialize_container(uuidToCatalogBrain(self.template_container.UID()))
+        result = self.service._serialize(brain=uuidToCatalogBrain(self.template_container.UID()))
 
         # post condition
         self.assertEqual(result.get('title'), 'Templates Container')

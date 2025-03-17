@@ -1,17 +1,15 @@
-import logging
-from typing import Optional, Any, List, TypedDict
+from typing import Optional, List, TypedDict
 
 from Products.ZCatalog.interfaces import ICatalogBrain
-from plone.dexterity.content import DexterityContent
-from zope.interface import implementer
-from zope.publisher.interfaces import IPublishTraverse
-from plone.restapi.services import Service
 from plone import api
+from plone.dexterity.content import DexterityContent
+from plone.restapi.services import Service
 
+from interaktiv.templates.contenttypes.templatescontainer import TemplatesContainer
 from interaktiv.templates.utilities.helper import common_prefix_length
 
 
-class TContainer(TypedDict):
+class TTemplatesContainer(TypedDict):
     title: str
     id: str
     url: str
@@ -19,60 +17,45 @@ class TContainer(TypedDict):
 
 
 class TTemplateContainerData(TypedDict):
-    containers: List[TContainer]
+    containers: List[TTemplatesContainer]
     nearest_container: str
 
 
 class InteraktivTemplatesTemplateContainerGet(Service):
-    def reply(self) -> TTemplateContainerData:
+    def reply(self) -> Optional[TTemplateContainerData]:
         content = api.content.get(path=self.request.form.get("url"))
         if content is None:
             return None
 
-        template_containers = api.content.find(portal_type="TemplatesContainer")
-        if not template_containers:
+        templates_containers = api.content.find(portal_type="TemplatesContainer")
+        if not templates_containers:
             return None
 
-        containers_list = [self._serialize_container(container) for container in template_containers]
-
-        nearest_container = self._get_nearest_template_container(content, template_containers)
+        nearest_container = self._get_nearest_template_container(content, templates_containers)
 
         return {
-            "containers": containers_list,
+            "containers": [self._serialize(brain) for brain in templates_containers],
             "nearest_container": nearest_container.absolute_url(),
         }
 
-    def _get_nearest_template_container(self, content: DexterityContent,
-                                              template_containers: List[ICatalogBrain]
-                                        ) -> Optional[DexterityContent]:
-        """
-        Finds the nearest template container for the given content object.
-        The container with the longest common path prefix is selected as the "nearest."
-
-        :param content: The content object for which the closest template container is being searched.
-        :return: The nearest template container or None if none is found.
-        """
-        if not template_containers:
+    @staticmethod
+    def _get_nearest_template_container(content: DexterityContent, templates_containers: List[ICatalogBrain]) -> \
+            Optional[TemplatesContainer]:
+        """ The container with the longest common path prefix is selected as the "nearest". """
+        if not templates_containers:
             return None
 
-        def get_common_length(container) -> int:
+        def get_common_length(container: TemplatesContainer) -> int:
             return common_prefix_length(content.getPhysicalPath(), container.getPhysicalPath())
 
         nearest_container = max(
-            (container.getObject() for container in template_containers),
+            (c.getObject() for c in templates_containers),
             key=get_common_length,
             default=None,
         )
 
         return nearest_container
 
-    def _serialize_container(self, container: ICatalogBrain) -> TContainer:
-        if container is None:
-            return None
-
-        return {
-            "title": container.Title,
-            "id": container.getId,
-            "url": container.getURL(),
-            "path": container.getPath()
-        }
+    @staticmethod
+    def _serialize(brain: ICatalogBrain) -> TTemplatesContainer:
+        return {"title": brain.Title, "id": brain.getId, "url": brain.getURL(), "path": brain.getPath()}

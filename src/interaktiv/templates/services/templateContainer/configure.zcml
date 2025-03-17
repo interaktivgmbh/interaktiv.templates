@@ -1,15 +1,10 @@
-<configure
-        xmlns="http://namespaces.zope.org/zope"
-        xmlns:plone="http://namespaces.plone.org/plone">
-
+<configure xmlns="http://namespaces.zope.org/zope" xmlns:plone="http://namespaces.plone.org/plone">
     <plone:service
         method="GET"
-        factory=".get.InteraktivTemplatesTemplateContainerGet"
-        for="plone.base.interfaces.IPloneSiteRoot"
-        permission="zope2.View"
         name="@template-container"
+        for="plone.base.interfaces.IPloneSiteRoot"
+        factory=".get.InteraktivTemplatesTemplateContainerGet"
+        permission="zope2.View"
         layer="interaktiv.templates.interfaces.IInteraktivTemplatesLayer"
-      />
-
-
+    />
 </configure>

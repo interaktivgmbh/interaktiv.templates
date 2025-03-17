@@ -1,12 +1,13 @@
 from typing import NoReturn
 
 from Products.CMFPlone.Portal import PloneSite
+from plone import api
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
 from interaktiv.templates.registry.template import ITemplateSchema
 from interaktiv.templates.utilities.helper import generate_secure_password
-from plone import api
+
 
 def create_or_update_template_thumbnail_user():
     username = api.portal.get_registry_record('thumbnail_user_username', interface=ITemplateSchema)

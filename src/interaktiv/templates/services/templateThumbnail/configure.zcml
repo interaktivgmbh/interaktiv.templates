@@ -1,15 +1,10 @@
-<configure
-    xmlns="http://namespaces.zope.org/zope"
-    xmlns:plone="http://namespaces.plone.org/plone"
-    >
-
+<configure xmlns="http://namespaces.zope.org/zope" xmlns:plone="http://namespaces.plone.org/plone">
     <plone:service
-      method="POST"
-      factory=".post.TemplateThumbnailPost"
-      for="plone.base.interfaces.IPloneSiteRoot"
-      permission="cmf.ModifyPortalContent"
-      name="@template-thumbnail"
-      layer="interaktiv.templates.interfaces.IInteraktivTemplatesLayer"
+        method="POST"
+        name="@template-thumbnail"
+        for="plone.base.interfaces.IPloneSiteRoot"
+        factory=".post.TemplateThumbnailPost"
+        permission="cmf.ModifyPortalContent"
+        layer="interaktiv.templates.interfaces.IInteraktivTemplatesLayer"
     />
-
 </configure>

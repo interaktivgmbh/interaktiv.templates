@@ -1,17 +1,11 @@
-from zope.interface import implementer, Interface
-from zope import schema
-
+from interaktiv.templates import _
 from plone.volto.content import FolderishDocument
 from plone.volto.interfaces import IFolderishDocument
-from plone.app.contenttypes.interfaces import IDocument
-from plone.autoform import directives
-
-from interaktiv.templates import _
+from zope import schema
+from zope.interface import implementer
 
 
 class ITemplate(IFolderishDocument):
-    """ Interface for Template """
-
     template_description = schema.TextLine(
         title=_('Template description'),
         description=_('give a quick description for the template'),

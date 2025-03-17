@@ -1,6 +1,7 @@
 from plone.restapi.services.types.get import TypesGet
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
+
 from interaktiv.templates.utilities.helper import get_schema_from_template
 
 
