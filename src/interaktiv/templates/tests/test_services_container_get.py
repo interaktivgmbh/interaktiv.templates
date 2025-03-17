@@ -120,3 +120,5 @@ class TestTemplatesContainerGet(unittest.TestCase):
         # post condition
         self.assertEqual(result.get('title'), 'Templates Container')
         self.assertEqual(result.get('url'), self.template_container.absolute_url())
+        self.assertEqual(result.get('path'), '/plone/templates_container')
+        self.assertEqual(result.get('id'), self.template_container.getId())
