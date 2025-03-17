@@ -1,6 +1,5 @@
-from zope.interface import Interface
-from zope.schema import TextLine
 from zope import schema
+from zope.interface import Interface
 
 
 class ITemplateSchema(Interface):

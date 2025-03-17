@@ -25,6 +25,7 @@ class TemplateThumbnailPost(Service):
         if not template:
             return create_response(self.request, 404, "Template not found")
 
+        # noinspection PyBroadException
         try:
             if data.get("modified"):
                 self._replace_thumbnail(template)
@@ -34,8 +35,8 @@ class TemplateThumbnailPost(Service):
             return create_response(self.request, 200, "Template thumbnail created successfully")
 
         except Exception as e:
-            return create_response(self.request, 500, "An error occurred while processing the template thumbnail.")
             logger.exception("Error proccesing template thumbnail: %s", str(e))
+            return create_response(self.request, 500, "An error occurred while processing the template thumbnail.")
 
     def _replace_thumbnail(self, template: DexterityContent) -> NoReturn:
         try:
