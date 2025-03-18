@@ -5,13 +5,12 @@ import secrets
 import string
 
 from ZPublisher.HTTPRequest import HTTPRequest
+from dotenv import load_dotenv
 from plone.app.uuid.utils import uuidToObject
 from uuid import uuid4
-from sqlalchemy.dialects import registry
-from zope.component import getUtility
 from zope.globalrequest import getRequest
 from interaktiv.templates import logger
-from typing import Dict, Tuple
+from typing import Tuple
 from plone import api
 
 from interaktiv.templates.registry.template import ITemplateSchema
@@ -56,7 +55,8 @@ def common_prefix_length(path1: Tuple[str, ...], path2: Tuple[str, ...]) -> int:
     return count
 
 
-def get_thumbnail(template_path) -> bytes:
+def get_thumbnail(template_path: str) -> bytes:
+    load_dotenv()
     try:
         screenshot = subprocess.check_output([
             'node',
@@ -64,6 +64,7 @@ def get_thumbnail(template_path) -> bytes:
             template_path,
             api.portal.get_registry_record(name='thumbnail_user_username', interface=ITemplateSchema),
             api.portal.get_registry_record(name='thumbnail_user_password', interface=ITemplateSchema),
+            os.getenv("MAIN_FRONTEND_HOST")
         ], stderr=subprocess.STDOUT)
 
         return base64.b64decode(screenshot)

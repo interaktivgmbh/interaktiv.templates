@@ -23,7 +23,6 @@ class TTemplateContainerData(TypedDict):
 
 class InteraktivTemplatesTemplateContainerGet(Service):
     def reply(self) -> Optional[TTemplateContainerData]:
-        print(self.request)
         content = api.content.get(path=self.request.form.get("url"))
         if content is None:
             return None

@@ -1,12 +1,12 @@
 const puppeteer = require('puppeteer');
 
-async function run(url, username, password) {
+async function run(url, username, password, frontend_url) {
     const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
     const page = await browser.newPage();
 
     await page.setViewport({width: 1920, height: 1080});
 
-    const response = await fetch('http://localhost:3000/++api++/@login', {
+    const response = await fetch(`http://${frontend_url}:3000/++api++/@login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ "login": username, "password": password })
@@ -15,7 +15,7 @@ async function run(url, username, password) {
     const data = await response.json();
     const token = data.token;
 
-    await page.setCookie({ name: 'auth_token', value: token, domain: 'localhost', path: '/' });
+    await browser.setCookie({ name: 'auth_token', value: token, domain: 'localhost', path: '/' });
 
     await page.goto(url, {waitUntil: 'networkidle0'});
 
@@ -28,13 +28,13 @@ async function run(url, username, password) {
     return screenshot
 }
 
-if (process.argv.length <= 4) {
+if (process.argv.length <= 5) {
     console.error('Expected at least one argument!');
     process.exit(1);
 }
 
 //noinspection JSIgnoredPromiseFromCall
-run(process.argv[2], process.argv[3], process.argv[4])
+run(process.argv[2], process.argv[3], process.argv[4], process.argv[5])
     .then(function (path) {
         console.log(path);
         process.exit(0);
