@@ -38,7 +38,7 @@ async function run(url, username, password, request_url) {
     const cookies = response.headers.get('set-cookie');
     const __acCookie = cookies.split(';').find(cookie => cookie.trim().startsWith('__ac='));
 
-    if(__acCookie) {
+    if (__acCookie) {
         await browser.setCookie({
             name: '__ac',
             value: __acCookie.split('=')[1],

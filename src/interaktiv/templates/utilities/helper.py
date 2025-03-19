@@ -57,7 +57,6 @@ def common_prefix_length(path1: Tuple[str, ...], path2: Tuple[str, ...]) -> int:
 
 
 def get_thumbnail(template_path: str, request_url: str) -> bytes:
-    print(template_path, request_url)
     try:
         screenshot = subprocess.check_output([
             'node',
