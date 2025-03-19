@@ -68,6 +68,6 @@ class TemplateThumbnailPost(Service):
             logger.exception("Error creating or assigning template thumbnail: %s", str(e))
             raise
 
-    @staticmethod
-    def _get_thumbnail_image(template_url: str) -> NamedBlobImage:
-        return NamedBlobImage(data=get_thumbnail(template_url), contentType="image/jpeg", filename="Template Thumbnail")
+    def _get_thumbnail_image(self, template_url: str) -> NamedBlobImage:
+        return NamedBlobImage(data=get_thumbnail(template_url, self.request.base), contentType="image/jpeg",
+                              filename="Template Thumbnail")

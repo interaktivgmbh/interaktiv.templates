@@ -1,21 +1,21 @@
 const puppeteer = require('puppeteer');
 
-async function run(url, username, password, frontend_url) {
+async function run(url, username, password, request_url) {
     const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
     const page = await browser.newPage();
 
     await page.setViewport({width: 1920, height: 1080});
 
-    const response = await fetch(`http://${frontend_url}:3000/++api++/@login`, {
+    const response = await fetch(`${request_url}:3000/++api++/@login`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ "login": username, "password": password })
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({"login": username, "password": password})
     });
 
     const data = await response.json();
     const token = data.token;
 
-    await browser.setCookie({ name: 'auth_token', value: token, domain: 'localhost', path: '/' });
+    await browser.setCookie({name: 'auth_token', value: token, domain: request_url, path: '/'});
 
     await page.goto(url, {waitUntil: 'networkidle0'});
 

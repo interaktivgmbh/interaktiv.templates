@@ -5,7 +5,6 @@ import secrets
 import string
 
 from ZPublisher.HTTPRequest import HTTPRequest
-from dotenv import load_dotenv
 from plone.app.uuid.utils import uuidToObject
 from uuid import uuid4
 from zope.globalrequest import getRequest
@@ -14,6 +13,7 @@ from typing import Tuple
 from plone import api
 
 from interaktiv.templates.registry.template import ITemplateSchema
+
 
 def get_schema_from_template(schema: dict) -> dict:
     request = getRequest()
@@ -44,6 +44,7 @@ def get_schema_from_template(schema: dict) -> dict:
 
     return schema
 
+
 def common_prefix_length(path1: Tuple[str, ...], path2: Tuple[str, ...]) -> int:
     """ Calculates the length of the common path prefix of two path tuples. """
     count = 0
@@ -55,8 +56,7 @@ def common_prefix_length(path1: Tuple[str, ...], path2: Tuple[str, ...]) -> int:
     return count
 
 
-def get_thumbnail(template_path: str) -> bytes:
-    load_dotenv()
+def get_thumbnail(template_path: str, request_url: str) -> bytes:
     try:
         screenshot = subprocess.check_output([
             'node',
@@ -64,7 +64,7 @@ def get_thumbnail(template_path: str) -> bytes:
             template_path,
             api.portal.get_registry_record(name='thumbnail_user_username', interface=ITemplateSchema),
             api.portal.get_registry_record(name='thumbnail_user_password', interface=ITemplateSchema),
-            os.getenv("MAIN_FRONTEND_HOST")
+            request_url
         ], stderr=subprocess.STDOUT)
 
         return base64.b64decode(screenshot)
@@ -84,6 +84,7 @@ def create_response(request: HTTPRequest, code: int, msg: str, **kwargs) -> dict
         result.update(kwargs)
 
     return result
+
 
 def generate_secure_password(length: int = 16) -> str:
     alphabet = string.ascii_letters + string.digits + string.punctuation
