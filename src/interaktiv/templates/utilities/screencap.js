@@ -6,26 +6,6 @@ async function run(url, username, password, request_url) {
 
     await page.setViewport({width: 1920, height: 1080});
 
-    const getBasicAuth = (username, password) =>
-        Buffer.from(`${username}:${password}`).toString('base64');
-
-    let basicAuth = '';
-
-    const environment = process.env?.ENVIRONMENT;
-    if (environment) {
-        if (environment === 'local') {
-            basicAuth = getBasicAuth(process.env.LOCAL_BASIC_AUTH_USERNAME, process.env.LOCAL_BASIC_AUTH_PASSWORD);
-        } else if (process.env?.SENTRY_ENVIRONMENT === 'ibbw-dev') {
-            basicAuth = getBasicAuth(process.env.IBBW_BASIC_AUTH_USERNAME, process.env.IBBW_BASIC_AUTH_PASSWORD);
-        } else {
-            basicAuth = getBasicAuth(process.env.BASIC_AUTH_USERNAME, process.env.BASIC_AUTH_PASSWORD);
-        }
-
-        await page.setExtraHTTPHeaders({
-            'Authorization': `Basic ${basicAuth}`
-        })
-    }
-
     const response = await fetch(`${request_url}/++api++/@login`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
