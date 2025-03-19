@@ -35,12 +35,25 @@ async function run(url, username, password, request_url) {
     const data = await response.json();
     const token = data.token;
 
+    const cookies = response.headers.get('set-cookie');
+    const __acCookie = cookies.split(';').find(cookie => cookie.trim().startsWith('__ac='));
+
+    if(__acCookie) {
+        await browser.setCookie({
+            name: '__ac',
+            value: __acCookie.split('=')[1],
+            domain: new URL(request_url).host,
+            path: '/',
+            sameSite: 'Lax',
+        });
+    }
+
     await browser.setCookie({
         name: 'auth_token',
         value: token,
         domain: new URL(request_url).host,
         path: '/',
-        secure: environment !== 'local'
+        secure: request_url.startsWith('https://'),
     });
 
     await page.goto(url, {waitUntil: 'networkidle0'});
