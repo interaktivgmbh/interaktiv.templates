@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2025-02-24 11:30+0000\n"
+"POT-Creation-Date: 2025-03-25 14:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Jan Mevissen <mevissen@interaktiv.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,48 +14,32 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: interaktiv.templates\n"
 
-#: ../behaviors/configure.zcml:16
-msgid "Adds Template thumbnail Behavior"
-msgstr "Fügt das Template Thumbnail Behavior hinzu"
-
-#: ../contenttypes/template.py:24
-msgid "URL to the template thumbnail"
-msgstr "URL zum Vorschaubild der Vorlage"
-
 #: ../profiles/default/types/Template.xml
 #: ../profiles/default/types/TemplatesContainer.xml
 msgid "Edit"
 msgstr ""
 
-#: ../configure.zcml:22
+#: ../configure.zcml:19
 msgid "Installs the interaktiv.templates package."
 msgstr "Installiert das interaktiv.templates Paket"
 
-#: ../configure.zcml:22
+#: ../configure.zcml:19
 msgid "Interaktiv Templates"
 msgstr "Interaktiv Vorlagen"
 
-#: ../behaviors/thumbnail.py:15
-msgid "Is Template Thumbnail?"
-msgstr "Vorschaubild für Vorlage?"
-
-#: ../behaviors/thumbnail.py:16
-msgid "Activate if this image is used as a thumbnail for a template"
-msgstr "Aktivieren, wenn dieses Bild als Vorschaubild für eine Vorlage genutzt wird"
+#: ../profiles/default/controlpanel.xml
+msgid "Interaktiv Templates Settings"
+msgstr ""
 
 #: ../profiles/default/types/Template.xml
 msgid "Template"
 msgstr "Vorlage"
 
-#: ../contenttypes/template.py:23
+#: ../contenttypes/template.py:17
 msgid "Template Thumbnail"
 msgstr "Vorschaubild der Vorlage"
 
-#: ../behaviors/configure.zcml:16
-msgid "Template Thumbnail Behavior"
-msgstr ""
-
-#: ../contenttypes/template.py:16
+#: ../contenttypes/template.py:10
 msgid "Template description"
 msgstr "Beschreibung der Vorlage"
 
@@ -63,7 +47,11 @@ msgstr "Beschreibung der Vorlage"
 msgid "TemplatesContainer"
 msgstr "Vorlagen Container"
 
-#: ../configure.zcml:30
+#: ../contenttypes/template.py:18
+msgid "URL to the template thumbnail"
+msgstr "URL zum Vorschaubild der Vorlage"
+
+#: ../configure.zcml:27
 msgid "Uninstalls the interaktiv.templates package."
 msgstr "Deinstalliert das interaktiv.templates Paket"
 
@@ -72,6 +60,16 @@ msgstr "Deinstalliert das interaktiv.templates Paket"
 msgid "View"
 msgstr ""
 
-#: ../contenttypes/template.py:17
+#: ../contenttypes/template.py:11
 msgid "give a quick description for the template"
 msgstr "Kurze Beschreibung für die Vorlage"
+
+#. Default: "Interaktiv Templates Settings"
+#: ../controlpanels/templates/settings.pt:12
+msgid "interaktiv_templates_settings"
+msgstr "Interaktiv Vorlagen Einstellungen"
+
+#. Default: "Save"
+#: ../controlpanels/templates/settings.pt:36
+msgid "save_interaktiv_templates_Settings"
+msgstr "Speichern"
