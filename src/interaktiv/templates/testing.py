@@ -7,7 +7,7 @@ class InteraktivTemplatesLayer(TestLayer):
 
     def __init__(self):
         super().__init__()
-        self.products_to_import = ['interaktiv.templates']
+        self.products_to_import = ['interaktiv.templates', 'plone.volto']
         self.product_to_install = 'interaktiv.templates'
 
 
