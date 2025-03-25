@@ -1,12 +1,30 @@
 const puppeteer = require('puppeteer');
 
-async function run(url, username, password) {
+async function checkBasicAuth(url) {
+    const response = await fetch(url, {method: 'GET'});
+
+    if (response.status === 401) {
+        const authHeader = response.headers.get('www-authenticate');
+        if (authHeader && authHeader.toLowerCase().includes('basic')) {
+            return true;
+        }
+    }
+    return false;
+}
+
+async function run(url, username, password, basic_auth_username, basic_auth_password) {
     const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
     const page = await browser.newPage();
 
     const siteURL = new URL(url)
 
     await page.setViewport({width: 1920, height: 1080});
+
+    if (await checkBasicAuth(siteURL.origin) && basic_auth_username && basic_auth_password) {
+        await page.setExtraHTTPHeaders({
+            'Authorization': `Basic ${Buffer.from(basic_auth_username + ':' + basic_auth_password).toString('base64')}`
+        })
+    }
 
     const response = await fetch(`${siteURL.origin}/++api++/@login`, {
         method: 'POST',

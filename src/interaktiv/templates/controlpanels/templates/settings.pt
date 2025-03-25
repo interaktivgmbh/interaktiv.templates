@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      lang="en"
+   metal:use-macro="context/main_template/macros/master"
+   i18n:domain="interaktiv.templates">
+<body>
+
+<metal:custom_title fill-slot="content-title">
+  <a id="setup-link"
+     class="link-parent"
+     href="${portal_url}/@@overview-controlpanel" i18n:translate="" i18n:domain="zope">Configuration</a>
+  <h1 class="documentFirstHeading"
+      i18n:translate="interaktiv_templates_settings">Interaktiv Templates Settings</h1>
+</metal:custom_title>
+
+<metal:content-core fill-slot="content-core">
+
+  <form action="${context/absolute_url}/@@templates-settings" method="POST" id="interaktiv-templates-settings-form">
+
+    <div class="field basic_auth_username basic_auth_password">
+      <h3>Basic Auth</h3>
+      <label for="basic_auth_username">Username</label>
+      <br>
+      <input type="text"
+             name="basic_auth_username"
+             value="${python: view.get_registry_record_value('basic_auth_username')}">
+      <br>
+
+      <label for="basic_auth_password">Password</label>
+      <br>
+      <input type="password" name="basic_auth_password"
+             value="${python: view.get_registry_record_value('basic_auth_password')}">
+      <br>
+    </div>
+
+    <button type="submit"
+            name="submit"
+            class="submit btn btn-success"
+         i18n:translate="save_interaktiv_templates_Settings"
+    >
+      Save
+    </button>
+  </form>
+
+  <style>
+    .field {
+      background: #f5f5f5;
+      border-radius: 4px;
+      padding: 20px;
+      margin-bottom: 50px;
+    }
+
+    .field label {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .field ul li {
+      margin: 10px;
+    }
+
+    .field input {
+      border-radius: 4px;
+      border: 1px solid black;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+
+</metal:content-core>
+</body>
+</html>

@@ -13,3 +13,13 @@ class IInteraktivTemplatesSchema(Interface):
         description='Password for the thumbnail user',
         required=True,
     )
+    basic_auth_enabled = schema.Bool(
+        title='Basic Auth Enabled',
+        default=False,
+    )
+    basic_auth_username = schema.TextLine(
+        title='Basic Auth Username'
+    )
+    basic_auth_password = schema.TextLine(
+        title='Basic Auth Password'
+    )
