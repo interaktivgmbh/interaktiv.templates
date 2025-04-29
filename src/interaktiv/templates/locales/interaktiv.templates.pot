@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2025-02-24 11:30+0000\n"
+"POT-Creation-Date: 2025-03-25 14:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,48 +17,32 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: interaktiv.templates\n"
 
-#: ../behaviors/configure.zcml:16
-msgid "Adds Template thumbnail Behavior"
-msgstr ""
-
-#: ../contenttypes/template.py:24
-msgid "Choose an thumbnail for the template"
-msgstr ""
-
 #: ../profiles/default/types/Template.xml
 #: ../profiles/default/types/TemplatesContainer.xml
 msgid "Edit"
 msgstr ""
 
-#: ../configure.zcml:22
+#: ../configure.zcml:19
 msgid "Installs the interaktiv.templates package."
 msgstr ""
 
-#: ../configure.zcml:22
+#: ../configure.zcml:19
 msgid "Interaktiv Templates"
 msgstr ""
 
-#: ../behaviors/thumbnail.py:15
-msgid "Is Template Thumbnail?"
-msgstr ""
-
-#: ../behaviors/thumbnail.py:16
-msgid "Set this to true if it is a template thumbnail"
+#: ../profiles/default/controlpanel.xml
+msgid "Interaktiv Templates Settings"
 msgstr ""
 
 #: ../profiles/default/types/Template.xml
 msgid "Template"
 msgstr ""
 
-#: ../contenttypes/template.py:23
+#: ../contenttypes/template.py:17
 msgid "Template Thumbnail"
 msgstr ""
 
-#: ../behaviors/configure.zcml:16
-msgid "Template Thumbnail Behavior"
-msgstr ""
-
-#: ../contenttypes/template.py:16
+#: ../contenttypes/template.py:10
 msgid "Template description"
 msgstr ""
 
@@ -66,7 +50,11 @@ msgstr ""
 msgid "TemplatesContainer"
 msgstr ""
 
-#: ../configure.zcml:30
+#: ../contenttypes/template.py:18
+msgid "URL to the template thumbnail"
+msgstr ""
+
+#: ../configure.zcml:27
 msgid "Uninstalls the interaktiv.templates package."
 msgstr ""
 
@@ -75,6 +63,16 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: ../contenttypes/template.py:17
+#: ../contenttypes/template.py:11
 msgid "give a quick description for the template"
+msgstr ""
+
+#. Default: "Interaktiv Templates Settings"
+#: ../controlpanels/templates/settings.pt:12
+msgid "interaktiv_templates_settings"
+msgstr ""
+
+#. Default: "Save"
+#: ../controlpanels/templates/settings.pt:36
+msgid "save_interaktiv_templates_Settings"
 msgstr ""

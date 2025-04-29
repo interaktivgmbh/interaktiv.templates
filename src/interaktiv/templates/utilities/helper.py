@@ -63,6 +63,8 @@ def get_thumbnail(template_url: str) -> bytes | None:
             template_url,
             api.portal.get_registry_record(name='thumbnail_user_username', interface=IInteraktivTemplatesSchema),
             api.portal.get_registry_record(name='thumbnail_user_password', interface=IInteraktivTemplatesSchema),
+            api.portal.get_registry_record(name='basic_auth_username', interface=IInteraktivTemplatesSchema, default=""),
+            api.portal.get_registry_record(name='basic_auth_password', interface=IInteraktivTemplatesSchema, default="")
         ], stderr=subprocess.STDOUT)
 
         return base64.b64decode(screenshot)
