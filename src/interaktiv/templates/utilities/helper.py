@@ -1,17 +1,10 @@
-import base64
-import os
-import secrets
-import string
-import subprocess
 from typing import Tuple
 from uuid import uuid4
 
-from ZPublisher import HTTPRequest
 from interaktiv.templates import logger
-from plone import api
+from interaktiv.templates.registry.template import IInteraktivTemplatesSchema
 from plone.app.uuid.utils import uuidToObject
 from zope.globalrequest import getRequest
-from interaktiv.templates.registry.template import IInteraktivTemplatesSchema
 
 
 def get_schema_from_template(schema: dict) -> dict:
@@ -53,38 +46,3 @@ def common_prefix_length(path1: Tuple[str, ...], path2: Tuple[str, ...]) -> int:
         else:
             break
     return count
-
-
-def get_thumbnail(template_url: str) -> bytes | None:
-    try:
-        screenshot = subprocess.check_output([
-            'node',
-            os.path.dirname(os.path.abspath(__file__)) + "/screencap.js",
-            template_url,
-            api.portal.get_registry_record(name='thumbnail_user_username', interface=IInteraktivTemplatesSchema),
-            api.portal.get_registry_record(name='thumbnail_user_password', interface=IInteraktivTemplatesSchema),
-            api.portal.get_registry_record(name='basic_auth_username', interface=IInteraktivTemplatesSchema, default=""),
-            api.portal.get_registry_record(name='basic_auth_password', interface=IInteraktivTemplatesSchema, default="")
-        ], stderr=subprocess.STDOUT)
-
-        return base64.b64decode(screenshot)
-
-    except subprocess.CalledProcessError as e:
-        logger.error("Thumbnail creation failed for: %s", str(template_url))
-
-    except Exception as e:
-        logger.exception("Unexpected error generating thumbnail for %s: %s", template_url, str(e))
-
-
-def create_response(request: HTTPRequest, code: int, msg: str, **kwargs) -> dict[str, str]:
-    request.response.setStatus(code)
-
-    result = {"message": msg}
-    if kwargs:
-        result.update(kwargs)
-
-    return result
-
-def generate_secure_password(length: int = 16) -> str:
-    alphabet = string.ascii_letters + string.digits + string.punctuation
-    return ''.join(secrets.choice(alphabet) for _ in range(length))

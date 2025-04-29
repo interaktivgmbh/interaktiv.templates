@@ -1,0 +1,18 @@
+<configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:plone="http://namespaces.plone.org/plone"
+        i18n_domain="interaktiv.contenttypes">
+
+    <include package="plone.behavior" file="meta.zcml"/>
+
+    <plone:behavior
+            title="Template thumbnail behavior"
+            name="interaktiv.template_thumbnail"
+            description="Adds template thumbnail behavior"
+            for ="plone.app.contenttypes.interfaces.IImage"
+            factory="interaktiv.templates.behaviors.template_thumbnail.TemplateThumbnailBehavior"
+            provides="interaktiv.templates.behaviors.template_thumbnail.ITemplateThumbnailBehavior"
+            marker="interaktiv.templates.behaviors.template_thumbnail.ITemplateThumbnailBehavior"
+    />
+
+</configure>

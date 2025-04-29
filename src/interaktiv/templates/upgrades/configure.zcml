@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+
+    <genericsetup:upgradeStep
+        source="1"
+        destination="1010"
+        title="Adds behavior to Image"
+        description="Adds template thumbnail behavior to image"
+        profile="interaktiv.templates:default"
+        handler="interaktiv.templates.upgrades.v1_to_v1010.upgrade"
+    />
+
+</configure>
