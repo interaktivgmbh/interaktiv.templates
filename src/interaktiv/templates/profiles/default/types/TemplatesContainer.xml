@@ -18,7 +18,7 @@
     <property name="global_allow">True</property>
 
     <!-- Schema, class and security -->
-    <property name="add_permission">cmf.AddPortalContent</property>
+    <property name="add_permission">interaktiv.templates.AddTemplatesContainer</property>
     <property name="klass">interaktiv.templates.contenttypes.templatescontainer.TemplatesContainer</property>
     <property name="schema">interaktiv.templates.contenttypes.templatescontainer.ITemplatesContainer</property>
     <property name="model_source"/>

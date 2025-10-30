@@ -2,7 +2,7 @@
     <plone:service
         method="GET"
         name="@templates-container"
-        for="plone.base.interfaces.IPloneSiteRoot"
+        for="*"
         factory=".get.InteraktivTemplatesContainerGet"
         permission="zope2.View"
         layer="interaktiv.templates.interfaces.IInteraktivTemplatesLayer"

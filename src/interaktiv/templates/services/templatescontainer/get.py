@@ -27,11 +27,13 @@ class InteraktivTemplatesContainerGet(Service):
         if content is None:
             return None
 
-        templates_containers = api.content.find(portal_type="TemplatesContainer")
+        templates_containers = api.content.find(
+            portal_type="TemplatesContainer")
         if not templates_containers:
             return None
 
-        nearest_container = self._get_nearest_template_container(content, templates_containers)
+        nearest_container = self._get_nearest_template_container(
+            content, templates_containers)
 
         return {
             "containers": [self._serialize(brain) for brain in templates_containers],
@@ -39,14 +41,17 @@ class InteraktivTemplatesContainerGet(Service):
         }
 
     @staticmethod
-    def _get_nearest_template_container(content: DexterityContent, templates_containers: List[ICatalogBrain]) -> \
-            Optional[TemplatesContainer]:
+    def _get_nearest_template_container(
+            content: DexterityContent, templates_containers:
+            List[ICatalogBrain]) -> Optional[TemplatesContainer]:
         """ The container with the longest common path prefix is selected as the "nearest". """
         if not templates_containers:
             return None
 
         def get_common_length(container: TemplatesContainer) -> int:
-            return common_prefix_length(content.getPhysicalPath(), container.getPhysicalPath())
+            return common_prefix_length(
+                content.getPhysicalPath(),
+                container.getPhysicalPath())
 
         nearest_container = max(
             (c.getObject() for c in templates_containers),

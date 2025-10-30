@@ -1,4 +1,5 @@
 from interaktiv.templates import _
+from plone.namedfile.field import NamedBlobImage
 from plone.volto.content import FolderishDocument
 from plone.volto.interfaces import IFolderishDocument
 from zope import schema
@@ -13,9 +14,9 @@ class ITemplate(IFolderishDocument):
         required=False
     )
 
-    template_thumbnail = schema.TextLine(
+    template_thumbnail = NamedBlobImage(
         title=_("Template Thumbnail"),
-        description=_("URL to the template thumbnail"),
+        description=_("The template thumbnail image"),
         required=False
     )
 
