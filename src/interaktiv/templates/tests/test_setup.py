@@ -1,17 +1,20 @@
-from interaktiv.templates.interfaces import IInteraktivTemplatesLayer
-from interaktiv.templates.testing import INTERAKTIV_TEMPLATES_INTEGRATION_TESTING
+import unittest
+
+# noinspection PyUnresolvedReferences
+from Products.CMFPlone.utils import get_installer
 from plone.browserlayer import utils
 
-from interaktiv.framework.test import TestCase
+from interaktiv.templates.interfaces import IInteraktivTemplatesLayer
+from interaktiv.templates.testing import INTERAKTIV_TEMPLATES_INTEGRATION_TESTING
 
 
-class TestSetup(TestCase):
+class TestSetup(unittest.TestCase):
     layer = INTERAKTIV_TEMPLATES_INTEGRATION_TESTING
     product_name = 'interaktiv.templates'
 
     def test_product_installed(self):
         # setup
-        installer = self.get_installer()
+        installer = get_installer(self.layer["portal"], self.layer["request"])
 
         # do it
         result = installer.is_product_installed(self.product_name)
@@ -21,7 +24,4 @@ class TestSetup(TestCase):
 
     def test_browserlayer_installed(self):
         # postcondition
-        self.assertIn(
-            IInteraktivTemplatesLayer,
-            utils.registered_layers()
-        )
+        self.assertIn(IInteraktivTemplatesLayer, utils.registered_layers())

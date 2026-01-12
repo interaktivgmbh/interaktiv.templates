@@ -1,0 +1,4 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+    <permission id="interaktiv.templates.AddTemplate" title="interaktiv.templates: Add Template" />
+    <permission id="interaktiv.templates.AddTemplatesContainer" title="interaktiv.templates: Add TemplatesContainer" />
+</configure>

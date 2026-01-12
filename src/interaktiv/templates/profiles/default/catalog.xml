@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="portal_catalog" meta_type="Plone Catalog Tool">
+
+    <column value="template_thumbnail"/>
+    <index name="template_thumbnail" meta_type="BooleanIndex">
+        <indexed_attr value="template_thumbnail"/>
+    </index>
+
+</object>
