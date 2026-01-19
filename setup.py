@@ -34,14 +34,6 @@ def check_python_version():
     if current_version not in required_python:
         sys.exit(f"'{NAME}' requires Python {REQUIRES_PYTHON} but the current Python is {current_version}")
 
-class CustomInstall(develop):
-    def run(self):
-        try:
-            subprocess.check_call(['npm', 'install'], cwd='./')
-            develop.run(self)
-        except subprocess.CalledProcessError as e:
-            print(f"Error when executing npm install: {e}")
-
 
 setup(
     name=NAME,
@@ -65,9 +57,6 @@ setup(
     url=URL,
     license='proprietary',
     packages=find_packages('src'),
-    cmdclass={
-        'develop': CustomInstall,
-    },
     package_dir={'': 'src'},
     namespace_packages=['interaktiv', ],
     include_package_data=True,
