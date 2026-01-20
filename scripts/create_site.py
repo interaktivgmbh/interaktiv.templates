@@ -1,5 +1,5 @@
 from AccessControl.SecurityManagement import newSecurityManager
-from interaktiv.templates.interfaces import IBrowserLayer
+from interaktiv.templates.interfaces import IInteraktivTemplatesLayer
 from Products.CMFPlone.factory import _DEFAULT_PROFILE
 from Products.CMFPlone.factory import addPloneSite
 from Products.GenericSetup.tool import SetupTool
@@ -32,7 +32,7 @@ app = makerequest(globals()["app"])
 
 request = app.REQUEST
 
-ifaces = [IBrowserLayer]
+ifaces = [IInteraktivTemplatesLayer]
 for iface in directlyProvidedBy(request):
     ifaces.append(iface)
 

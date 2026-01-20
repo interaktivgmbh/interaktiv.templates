@@ -9,8 +9,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
+"Language-Code: de\n"
+"Language-Name: German\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: interaktiv.templates\n"
 
@@ -21,11 +21,11 @@ msgstr ""
 
 #: ../configure.zcml:19
 msgid "Installs the interaktiv.templates package."
-msgstr ""
+msgstr "Installiert das interaktiv.templates Paket"
 
 #: ../configure.zcml:19
 msgid "Interaktiv Templates"
-msgstr ""
+msgstr "Interaktiv Vorlagen"
 
 #: ../profiles/default/controlpanel.xml
 msgid "Interaktiv Templates Settings"
@@ -33,27 +33,27 @@ msgstr ""
 
 #: ../profiles/default/types/Template.xml
 msgid "Template"
-msgstr ""
+msgstr "Vorlage"
 
 #: ../contenttypes/template.py:17
 msgid "Template Thumbnail"
-msgstr ""
+msgstr "Vorschaubild der Vorlage"
 
 #: ../contenttypes/template.py:10
 msgid "Template description"
-msgstr ""
+msgstr "Beschreibung der Vorlage"
 
 #: ../profiles/default/types/TemplatesContainer.xml
 msgid "TemplatesContainer"
-msgstr "Template Container"
+msgstr "Vorlagen Container"
 
 #: ../contenttypes/template.py:18
 msgid "URL to the template thumbnail"
-msgstr ""
+msgstr "URL zum Vorschaubild der Vorlage"
 
 #: ../configure.zcml:27
 msgid "Uninstalls the interaktiv.templates package."
-msgstr ""
+msgstr "Deinstalliert das interaktiv.templates Paket"
 
 #: ../profiles/default/types/Template.xml
 #: ../profiles/default/types/TemplatesContainer.xml
@@ -62,14 +62,14 @@ msgstr ""
 
 #: ../contenttypes/template.py:11
 msgid "give a quick description for the template"
-msgstr ""
+msgstr "Kurze Beschreibung für die Vorlage"
 
 #. Default: "Interaktiv Templates Settings"
 #: ../controlpanels/templates/settings.pt:12
 msgid "interaktiv_templates_settings"
-msgstr ""
+msgstr "Interaktiv Vorlagen Einstellungen"
 
 #. Default: "Save"
 #: ../controlpanels/templates/settings.pt:36
 msgid "save_interaktiv_templates_Settings"
-msgstr ""
+msgstr "Speichern"

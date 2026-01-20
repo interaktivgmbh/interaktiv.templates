@@ -7,10 +7,10 @@ class TestSetupInstall:
         assert installer.is_product_installed(PACKAGE_NAME) is True
 
     def test_browserlayer(self, browser_layers):
-        """Test that IBrowserLayer is registered."""
-        from interaktiv.templates.interfaces import IBrowserLayer
+        """Test that IInteraktivTemplatesLayer is registered."""
+        from interaktiv.templates.interfaces import IInteraktivTemplatesLayer
 
-        assert IBrowserLayer in browser_layers
+        assert IInteraktivTemplatesLayer in browser_layers
 
     def test_latest_version(self, profile_last_version):
         """Test latest version of default profile."""

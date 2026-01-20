@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <layers>
-  <layer interface="interaktiv.templates.interfaces.IBrowserLayer"
-         name="interaktiv.templates"
-  />
+    <layer name="interaktiv.templates" interface="interaktiv.templates.interfaces.IInteraktivTemplatesLayer" />
 </layers>

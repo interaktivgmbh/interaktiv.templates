@@ -13,7 +13,7 @@ class TestSetupUninstall:
         assert installer.is_product_installed(PACKAGE_NAME) is False
 
     def test_browserlayer_not_registered(self, browser_layers):
-        """Test that IBrowserLayer is not registered."""
-        from interaktiv.templates.interfaces import IBrowserLayer
+        """Test that IInteraktivTemplatesLayer is not registered."""
+        from interaktiv.templates.interfaces import IInteraktivTemplatesLayer
 
-        assert IBrowserLayer not in browser_layers
+        assert IInteraktivTemplatesLayer not in browser_layers
