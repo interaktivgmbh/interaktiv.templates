@@ -1,16 +1,16 @@
-import unittest
+from interaktiv.templates.interfaces import IInteraktivTemplatesLayer
+from interaktiv.templates.testing import INTEGRATION_TESTING
+from plone.browserlayer import utils
 
 # noinspection PyUnresolvedReferences
 from Products.CMFPlone.utils import get_installer
-from plone.browserlayer import utils
 
-from interaktiv.templates.interfaces import IInteraktivTemplatesLayer
-from interaktiv.templates.testing import INTEGRATION_TESTING
+import unittest
 
 
 class TestSetup(unittest.TestCase):
     layer = INTEGRATION_TESTING
-    product_name = 'interaktiv.templates'
+    product_name = "interaktiv.templates"
 
     def test_product_installed(self):
         # setup

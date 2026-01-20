@@ -8,19 +8,19 @@ from zope.interface import implementer
 
 class ITemplate(IFolderishDocument):
     template_description = schema.TextLine(
-        title=_('Template description'),
-        description=_('give a quick description for the template'),
-        default='',
-        required=False
+        title=_("Template description"),
+        description=_("give a quick description for the template"),
+        default="",
+        required=False,
     )
 
     template_thumbnail = NamedBlobImage(
         title=_("Template Thumbnail"),
         description=_("The template thumbnail image"),
-        required=False
+        required=False,
     )
 
 
 @implementer(ITemplate)
 class Template(FolderishDocument):
-    """ Template Container """
+    """Template Container"""

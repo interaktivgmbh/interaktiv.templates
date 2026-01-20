@@ -1,13 +1,17 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <rolemap>
-    <permissions>
-        <permission name="interaktiv.templates: Add Template" acquire="False">
-            <role name="Site Administrator" />
-            <role name="Manager" />
-        </permission>
-        <permission name="interaktiv.templates: Add TemplatesContainer" acquire="False">
-            <role name="Site Administrator" />
-            <role name="Manager" />
-        </permission>
-    </permissions>
+  <permissions>
+    <permission acquire="False"
+                name="interaktiv.templates: Add Template"
+    >
+      <role name="Site Administrator" />
+      <role name="Manager" />
+    </permission>
+    <permission acquire="False"
+                name="interaktiv.templates: Add TemplatesContainer"
+    >
+      <role name="Site Administrator" />
+      <role name="Manager" />
+    </permission>
+  </permissions>
 </rolemap>
