@@ -1,4 +1,4 @@
-interaktiv.alttextgenerator
+interaktiv.templates
 Copyright (C) 2025 Interaktiv GmbH
 
 This program is free software; you can redistribute it and/or modify
