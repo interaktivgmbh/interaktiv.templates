@@ -1,12 +1,11 @@
-from typing import Optional, List, TypedDict
-
-from Products.ZCatalog.interfaces import ICatalogBrain
+from interaktiv.templates.contenttypes.templatescontainer import TemplatesContainer
+from interaktiv.templates.utilities.helper import common_prefix_length
 from plone import api
 from plone.dexterity.content import DexterityContent
 from plone.restapi.services import Service
-
-from interaktiv.templates.contenttypes.templatescontainer import TemplatesContainer
-from interaktiv.templates.utilities.helper import common_prefix_length
+from Products.ZCatalog.interfaces import ICatalogBrain
+from typing import Any
+from typing import TypedDict
 
 
 class TTemplatesContainer(TypedDict):
@@ -17,23 +16,23 @@ class TTemplatesContainer(TypedDict):
 
 
 class TTemplateContainerData(TypedDict):
-    containers: List[TTemplatesContainer]
+    containers: list[TTemplatesContainer]
     nearest_container: str
 
 
 class InteraktivTemplatesContainerGet(Service):
-    def reply(self) -> Optional[TTemplateContainerData]:
+    def reply(self) -> dict[str, list[TTemplatesContainer] | Any] | None:
         content = api.content.get(path=self.request.form.get("url"))
         if content is None:
             return None
 
-        templates_containers = api.content.find(
-            portal_type="TemplatesContainer")
+        templates_containers = api.content.find(portal_type="TemplatesContainer")
         if not templates_containers:
             return None
 
         nearest_container = self._get_nearest_template_container(
-            content, templates_containers)
+            content, templates_containers
+        )
 
         return {
             "containers": [self._serialize(brain) for brain in templates_containers],
@@ -42,16 +41,16 @@ class InteraktivTemplatesContainerGet(Service):
 
     @staticmethod
     def _get_nearest_template_container(
-            content: DexterityContent, templates_containers:
-            List[ICatalogBrain]) -> Optional[TemplatesContainer]:
-        """ The container with the longest common path prefix is selected as the "nearest". """
+        content: DexterityContent, templates_containers: list[ICatalogBrain]
+    ) -> TemplatesContainer | None:
+        """Return the container with the longest common path prefix."""
         if not templates_containers:
             return None
 
         def get_common_length(container: TemplatesContainer) -> int:
             return common_prefix_length(
-                content.getPhysicalPath(),
-                container.getPhysicalPath())
+                content.getPhysicalPath(), container.getPhysicalPath()
+            )
 
         nearest_container = max(
             (c.getObject() for c in templates_containers),
@@ -63,4 +62,9 @@ class InteraktivTemplatesContainerGet(Service):
 
     @staticmethod
     def _serialize(brain: ICatalogBrain) -> TTemplatesContainer:
-        return {"title": brain.Title, "id": brain.getId, "url": brain.getURL(), "path": brain.getPath()}
+        return {
+            "title": brain.Title,
+            "id": brain.getId,
+            "url": brain.getURL(),
+            "path": brain.getPath(),
+        }

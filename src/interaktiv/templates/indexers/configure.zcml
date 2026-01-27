@@ -1,3 +1,6 @@
 <configure xmlns="http://namespaces.zope.org/zope">
-    <adapter factory="interaktiv.templates.indexers.template_thumbnail.TemplateThumbnailIndexer" name="template_thumbnail"/>
+  <adapter
+      factory="interaktiv.templates.indexers.template_thumbnail.TemplateThumbnailIndexer"
+      name="template_thumbnail"
+      />
 </configure>

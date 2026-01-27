@@ -1,22 +1,49 @@
-from interaktiv.framework.test import TestLayer
-from plone.app.testing import FunctionalTesting, IntegrationTesting
+from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
+from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
+from plone.app.testing import applyProfile
+from plone.app.testing import FunctionalTesting
+from plone.app.testing import IntegrationTesting
+from plone.app.testing import PloneSandboxLayer
 from plone.testing.zope import WSGI_SERVER_FIXTURE
 
-
-class InteraktivTemplatesLayer(TestLayer):
-
-    def __init__(self):
-        super().__init__()
-        self.products_to_import = ['interaktiv.templates', 'plone.volto']
-        self.product_to_install = 'interaktiv.templates'
+import interaktiv.templates
 
 
-INTERAKTIV_TEMPLATES_FIXTURE = InteraktivTemplatesLayer()
-INTERAKTIV_TEMPLATES_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(INTERAKTIV_TEMPLATES_FIXTURE,),
-    name='InteraktivTemplatesLayer:IntegrationTesting'
+class Layer(PloneSandboxLayer):
+    defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
+
+    def setUpZope(self, app, configurationContext):
+        # Load any other ZCML that is required for your tests.
+        # The z3c.autoinclude feature is disabled in the Plone fixture base
+        # layer.
+        import plone.restapi
+
+        self.loadZCML(package=plone.restapi)
+        self.loadZCML(package=interaktiv.templates)
+
+    def setUpPloneSite(self, portal):
+        applyProfile(portal, "interaktiv.templates:default")
+
+
+FIXTURE = Layer()
+
+INTEGRATION_TESTING = IntegrationTesting(
+    bases=(FIXTURE,),
+    name="Interaktiv.TemplatesLayer:IntegrationTesting",
 )
-INTERAKTIV_TEMPLATES_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(INTERAKTIV_TEMPLATES_FIXTURE, WSGI_SERVER_FIXTURE),
-    name='InteraktivTemplatesLayer:FunctionalTesting'
+
+
+FUNCTIONAL_TESTING = FunctionalTesting(
+    bases=(FIXTURE, WSGI_SERVER_FIXTURE),
+    name="Interaktiv.TemplatesLayer:FunctionalTesting",
+)
+
+
+ACCEPTANCE_TESTING = FunctionalTesting(
+    bases=(
+        FIXTURE,
+        REMOTE_LIBRARY_BUNDLE_FIXTURE,
+        WSGI_SERVER_FIXTURE,
+    ),
+    name="Interaktiv.TemplatesLayer:AcceptanceTesting",
 )

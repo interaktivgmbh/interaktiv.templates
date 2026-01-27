@@ -1,19 +1,18 @@
 from base64 import b64encode
-from unittest.mock import patch
-
-import interaktiv.framework as framework
-from ZPublisher.pubevents import PubStart
 from interaktiv.templates.services.types.get import InteraktivTemplatesTypesGet
-from interaktiv.templates.testing import INTERAKTIV_TEMPLATES_FUNCTIONAL_TESTING
+from interaktiv.templates.testing import INTEGRATION_TESTING
+from interaktiv.templates.tests import TestCase
 from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.restapi.services.types.get import TypesGet
 from plone.restapi.testing import RelativeSession
+from unittest.mock import patch
 from zope.event import notify
+from ZPublisher.pubevents import PubStart
 
 
-class TestTemplatesTypesGet(framework.TestCase):
-    layer = INTERAKTIV_TEMPLATES_FUNCTIONAL_TESTING
+class TestTemplatesTypesGet(TestCase):
+    layer = INTEGRATION_TESTING
     service: InteraktivTemplatesTypesGet
 
     def setUp(self):
@@ -34,8 +33,7 @@ class TestTemplatesTypesGet(framework.TestCase):
         request.environ["HTTP_ACCEPT"] = accept
         request.environ["REQUEST_METHOD"] = method
         auth = f"{SITE_OWNER_NAME}:{SITE_OWNER_PASSWORD}"
-        request._auth = "Basic %s" % b64encode(
-            auth.encode("utf8")).decode("utf8")
+        request._auth = f"Basic {b64encode(auth.encode('utf8')).decode('utf8')}"
         notify(PubStart(request))
         return request.traverse(path)
 
@@ -44,9 +42,15 @@ class TestTemplatesTypesGet(framework.TestCase):
         mock_schema = {"properties": {}}
 
         # do it
-        with patch.object(TypesGet, 'reply_for_type', return_value=mock_schema) as mock_super_reply, \
-                patch('interaktiv.templates.services.types.get.get_schema_from_template',
-                      return_value=mock_schema) as mock_get_schema_from_template:
+        with (
+            patch.object(
+                TypesGet, "reply_for_type", return_value=mock_schema
+            ) as mock_super_reply,
+            patch(
+                "interaktiv.templates.services.types.get.get_schema_from_template",
+                return_value=mock_schema,
+            ) as mock_get_schema_from_template,
+        ):
             result = self.service.reply_for_type()
 
         # post condition
