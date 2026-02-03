@@ -1,5 +1,6 @@
-from bsbw.templates.contenttypes.template import ITemplate
 from plone.indexer.decorator import indexer
+
+from interaktiv.templates.contenttypes.template import ITemplate
 
 
 @indexer(ITemplate)
