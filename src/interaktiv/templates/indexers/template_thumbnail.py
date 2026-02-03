@@ -1,5 +1,6 @@
-from plone.indexer.decorator import indexer
 from bsbw.templates.contenttypes.template import ITemplate
+from plone.indexer.decorator import indexer
+
 
 @indexer(ITemplate)
 def TemplateThumbnailIndexer(obj: ITemplate) -> str:
