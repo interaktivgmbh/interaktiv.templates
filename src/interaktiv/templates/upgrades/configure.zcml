@@ -3,13 +3,13 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     >
 
-    <genericsetup:upgradeStep
-        source="1000"
-        destination="1001"
-        title="Change meta_type of template_thumbnail index"
-        description="Change meta_type of template_thumbnail index"
-        profile="interaktiv.templates:default"
-        handler="interaktiv.templates.upgrades.v1000_to_v1001.upgrade"
-    />
+  <genericsetup:upgradeStep
+      title="Change meta_type of template_thumbnail index"
+      description="Change meta_type of template_thumbnail index"
+      profile="interaktiv.templates:default"
+      source="1000"
+      destination="1001"
+      handler="interaktiv.templates.upgrades.v1000_to_v1001.upgrade"
+      />
 
 </configure>
