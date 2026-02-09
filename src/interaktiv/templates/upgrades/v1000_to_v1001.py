@@ -1,4 +1,3 @@
-from typing import Optional
 
 from Products.CMFCore.CatalogTool import CatalogTool
 from Products.GenericSetup.tool import SetupTool
@@ -6,7 +5,7 @@ from plone import api
 
 
 # noinspection PyUnusedLocal
-def upgrade(site_setup: Optional[SetupTool] = None) -> None:
+def upgrade(site_setup: SetupTool | None = None) -> None:
     catalog: CatalogTool = api.portal.get_tool('portal_catalog')
 
     # change index meta_type to FieldIndex
