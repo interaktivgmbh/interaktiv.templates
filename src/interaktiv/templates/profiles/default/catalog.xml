@@ -4,7 +4,7 @@
 >
 
   <column value="template_thumbnail" />
-  <index meta_type="BooleanIndex"
+  <index meta_type="FieldIndex"
          name="template_thumbnail"
   >
     <indexed_attr value="template_thumbnail" />
