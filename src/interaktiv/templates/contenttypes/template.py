@@ -14,6 +14,17 @@ class ITemplate(IFolderishDocument):
         required=False,
     )
 
+    template_types = schema.List(
+        title=_("label_template_types", default="Content types"),
+        description=_(
+            "help_template_types",
+            default="The template is offered when adding content of these types.",
+        ),
+        value_type=schema.Choice(vocabulary="interaktiv.templates.BlocksContentTypes"),
+        required=True,
+        min_length=1,
+    )
+
     template_thumbnail = NamedBlobImage(
         title=_("Template Thumbnail"),
         description=_("The template thumbnail image"),

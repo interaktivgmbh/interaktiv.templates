@@ -19,6 +19,7 @@
   <include package=".indexers" />
   <include package=".services" />
   <include package=".permissions" />
+  <include package=".vocabularies" />
 
   <!-- -*- extra stuff goes here -*- -->
 

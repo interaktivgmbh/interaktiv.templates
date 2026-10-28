@@ -22,6 +22,7 @@ class Layer(PloneSandboxLayer):
         self.loadZCML(package=interaktiv.templates)
 
     def setUpPloneSite(self, portal):
+        applyProfile(portal, "plone.volto:default")
         applyProfile(portal, "interaktiv.templates:default")
 
 

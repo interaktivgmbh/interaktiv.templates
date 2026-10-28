@@ -67,9 +67,19 @@ msgstr ""
 msgid "give a quick description for the template"
 msgstr ""
 
+#. Default: "The template is offered when adding content of these types."
+#: ../contenttypes/template.py:19
+msgid "help_template_types"
+msgstr ""
+
 #. Default: "Interaktiv Templates Settings"
 #: ../controlpanels/templates/settings.pt:12
 msgid "interaktiv_templates_settings"
+msgstr ""
+
+#. Default: "Content types"
+#: ../contenttypes/template.py:18
+msgid "label_template_types"
 msgstr ""
 
 #. Default: "Save"
